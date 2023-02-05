@@ -24,6 +24,7 @@ import {
     Switch,
     Toast,
     Tab,
+    Tag,
     Tabs,
     SwipeCell,
 } from 'vant'
@@ -59,6 +60,7 @@ app.use(SwipeCell)
 app.use(Switch)
 app.use(Tab)
 app.use(Tabs)
+app.use(Tag)
 app.use(Toast)
 
 app.mount('#app')
