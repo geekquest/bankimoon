@@ -38,6 +38,7 @@ dependencies:
   sqflite: ^2.2.4+1
   flutter_bloc: ^8.1.1
   encrypt: ^5.0.1
+  shared_preferences: ^2.0.17
 
 dev_dependencies:
   flutter_test:
