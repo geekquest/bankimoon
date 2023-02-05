@@ -82,8 +82,8 @@ export default {
       localStorage.setItem(ACCOUNT_KEY, JSON.stringify(this.accounts))
     },
 
-    deleteSelectedAccount(account) {
-      this.accounts.shift()
+    deleteSelectedAccount(idx, account) {
+      this.accounts.splice(idx, 1)
       this.saveAccountsToLocalStorage()
     },
 
@@ -112,12 +112,12 @@ export default {
   <van-nav-bar :title="appTitle" />
 
   <van-search v-model="query" placeholder="Search" />
-  van-
+  <small style="color: #ffadf1; font-size: 0.65em;">Tap the account number to copy or swipe right and click "Copy"</small>
   <van-tabs v-model:active="activeTabName">
     <van-tab title="ALL" name="allAccounts">
       <van-empty description="No accounts created yet" v-if="this.accounts.length < 1"/>
       <van-cell-group v-else>
-        <van-swipe-cell v-for="account in searchResults" v-on:close="onSwipeLeft"
+        <van-swipe-cell v-for="(account, idx) in searchResults" v-on:close="onSwipeLeft"
           @dblclick="copyAccountToClipboard(account)">
           <template #left>
             <van-button square type="primary" text="Copy" @click="copyAccountToClipboard(account)" />
@@ -131,7 +131,7 @@ export default {
             <span>{{ account.org }}</span>
           </van-cell>
           <template #right>
-            <van-button square type="danger" text="Delete" @click="deleteSelectedAccount(account)" />
+            <van-button square type="danger" text="Delete" @click="deleteSelectedAccount(idx, account)" />
           </template>
         </van-swipe-cell>
       </van-cell-group>
@@ -142,7 +142,7 @@ export default {
     </van-tab>
     <van-tab title="MINE" name="myAccounts">
       <van-cell-group>
-        <van-swipe-cell v-for="account in searchResults" v-on:close="onSwipeLeft"
+        <van-swipe-cell v-for="(account, idx) in searchResults" v-on:close="onSwipeLeft"
           @dblclick="copyAccountToClipboard(account)">
           <template #left>
             <van-button square type="primary" text="Copy" @click="copyAccountToClipboard(account)" />
@@ -156,7 +156,7 @@ export default {
             <span>{{ account.org }}</span>
           </van-cell>
           <template #right>
-            <van-button square type="danger" text="Delete" @click="deleteSelectedAccount(account)" />
+            <van-button square type="danger" text="Delete" @click="deleteSelectedAccount(idx, account)" />
           </template>
         </van-swipe-cell>
       </van-cell-group>
