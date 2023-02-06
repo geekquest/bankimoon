@@ -67,7 +67,6 @@ export default {
         return;
       }
       let accountData = Object.assign({}, this.newAccount)
-      // TODO: handle answer options for multiple choice
       this.accounts.push(accountData)
       this.resetNewAccount()
       this.isEditingAccount = false;
@@ -142,7 +141,7 @@ export default {
     </van-tab>
     <van-tab title="MINE" name="myAccounts">
       <van-cell-group>
-        <van-swipe-cell v-for="(account, idx) in searchResults" v-on:close="onSwipeLeft"
+        <van-swipe-cell v-for="(account, idx) in myAccounts" v-on:close="onSwipeLeft"
           @dblclick="copyAccountToClipboard(account)">
           <template #left>
             <van-button square type="primary" text="Copy" @click="copyAccountToClipboard(account)" />

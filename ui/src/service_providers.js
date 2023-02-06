@@ -60,5 +60,11 @@ export const serviceProviders = [
         name: "ESCOM",
         address: "ESCOM",
         iconLogo: "/img/service-provider-logo.png",
+    },
+    {
+        alias: "OTHER",
+        name: "Other Service Provider",
+        address: "Other",
+        iconLogo: "/img/service-provider-logo.png",
     }
 ]
