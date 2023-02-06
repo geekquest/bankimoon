@@ -17,7 +17,6 @@ class Home extends StatelessWidget {
           style: titleStyles,
         ),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple[800],
       ),
       body: BlocBuilder<AccountsCubit, AccountsState>(
         builder: (context, state) {
@@ -37,10 +36,73 @@ class Home extends StatelessWidget {
                 ),
               );
             } else {
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  return ListTile();
-                },
+              return ListView(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Your Accounts",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        GestureDetector(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 13,
+                              vertical: 5,
+                            ),
+                            decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(
+                                  50.0,
+                                )),
+                            child: const Text(
+                              'Clear All',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const ScrollPhysics(),
+                    itemCount: state.accounts.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          child: ListTile(
+                            title: Text(
+                              state.accounts[index].bankName,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Text(
+                              '${state.accounts[index].accountNumber.toString()} - ${state.accounts[index].accountName}',
+                            ),
+                            trailing: const Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               );
             }
           } else {

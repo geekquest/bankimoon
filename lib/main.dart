@@ -13,8 +13,11 @@ Future<void> main() async {
         onGenerateRoute: AppRouter().generateRoute,
         theme: ThemeData(
           useMaterial3: true,
-          primaryColor: const Color.fromARGB(255, 87, 42, 163),
           fontFamily: GoogleFonts.lato().fontFamily,
+          colorSchemeSeed: Colors.deepPurple,
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.deepPurple[800],
+          ),
         ),
       ),
     );

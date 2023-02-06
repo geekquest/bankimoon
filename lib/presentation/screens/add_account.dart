@@ -12,11 +12,11 @@ class AddAccount extends StatefulWidget {
 
 class _AddAccountState extends State<AddAccount> {
   final formkey = GlobalKey<FormState>();
+  String institutionName = 'National Bank of Malawi';
+  final TextEditingController accountName = TextEditingController();
+  final TextEditingController accountNumber = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final TextEditingController accountName = TextEditingController();
-    final TextEditingController accountNumber = TextEditingController();
-    String institutionName = 'National Bank of Malawi';
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -28,7 +28,6 @@ class _AddAccountState extends State<AddAccount> {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple[800],
         leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
@@ -69,7 +68,7 @@ class _AddAccountState extends State<AddAccount> {
                           ),
                           hintText: "Type or paste account name",
                           labelText: "Account Name",
-                          isCollapsed: true,
+                          isDense: true,
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               width: 1.0,
@@ -112,6 +111,7 @@ class _AddAccountState extends State<AddAccount> {
                         prefixIcon: Icon(
                           Icons.account_balance,
                         ),
+                        isDense: true,
                         hintText: "Type or paste account number",
                         labelText: "Account Number",
                         isCollapsed: true,
@@ -157,7 +157,7 @@ class _AddAccountState extends State<AddAccount> {
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton(
                             value: institutionName,
-                            hint: const Text('Wind Speed source indicator'),
+                            hint: const Text('Institution Name'),
                             items: banks
                                 .map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem(
