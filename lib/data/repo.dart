@@ -24,4 +24,11 @@ class Repository {
         )
         .toList();
   }
+
+  Future addAccount(
+      String institutionName, String accountName, String accountNumber) async {
+    final data = await connection.addAccount(
+        accountName, accountNumber, institutionName);
+    return data;
+  }
 }

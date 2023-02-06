@@ -20,3 +20,11 @@ class AccountsFetched extends AccountsState {
 
   AccountsFetched({required this.accounts});
 }
+
+class SubmittingAccount extends AccountsState {}
+
+class AccountSubmitted extends AccountsState {
+  final String msg;
+
+  AccountSubmitted({required this.msg});
+}

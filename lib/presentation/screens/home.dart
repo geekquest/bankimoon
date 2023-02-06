@@ -1,4 +1,5 @@
 import 'package:bankimoon/data/cubit/accounts_cubit.dart';
+import 'package:bankimoon/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,10 +14,7 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           "Bankimoon",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+          style: titleStyles,
         ),
         centerTitle: true,
         backgroundColor: Colors.deepPurple[800],
@@ -59,7 +57,9 @@ class Home extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, addAccount);
+        },
         child: const Icon(Icons.add),
       ),
     );

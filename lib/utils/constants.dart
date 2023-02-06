@@ -24,3 +24,21 @@ const textStyle = TextStyle(
   fontWeight: FontWeight.w700,
   color: Colors.white,
 );
+
+const titleStyles = TextStyle(
+  color: Colors.white,
+  fontWeight: FontWeight.bold,
+);
+
+// banks array
+List<String> banks = [
+  'National Bank of Malawi',
+  'FDH Bank',
+  'Standard Bank',
+  'NBS Bank',
+  'Eco Bank',
+  'My Bucks',
+  'First Capital Bank',
+  'ESCOM',
+  'MASM',
+];

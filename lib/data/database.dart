@@ -57,4 +57,23 @@ class DbManager {
 
     return accounts;
   }
+
+  // add accounts
+  Future addAccount(
+      String accountName, String accountNumber, String bankName) async {
+    await openDb();
+    // convert account number to integer
+    final newAc = int.parse(accountNumber);
+    final response = await _database.insert("accounts", {
+      'bankName': bankName,
+      'accountName': accountName,
+      'accountNumber': newAc,
+    });
+
+    print(response);
+
+    return {
+      'msg': 'Account Saved',
+    };
+  }
 }

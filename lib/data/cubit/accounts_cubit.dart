@@ -33,4 +33,18 @@ class AccountsCubit extends Cubit<AccountsState> {
       );
     });
   }
+
+  // add account
+  void addAccount(institutionName, accountName, accountNumber) {
+    emit(SubmittingAccount());
+    repository
+        .addAccount(institutionName, accountName, accountNumber)
+        .then((value) {
+      emit(
+        AccountSubmitted(
+          msg: value['msg'],
+        ),
+      );
+    });
+  }
 }
