@@ -12,3 +12,11 @@ class PasswordCreated extends AccountsState {
 
   PasswordCreated({required this.msg});
 }
+
+class FetchingAccounts extends AccountsState {}
+
+class AccountsFetched extends AccountsState {
+  final List accounts;
+
+  AccountsFetched({required this.accounts});
+}

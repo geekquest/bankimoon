@@ -2,6 +2,7 @@ import 'package:bankimoon/data/cubit/accounts_cubit.dart';
 import 'package:bankimoon/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CreatePassword extends StatefulWidget {
   const CreatePassword({super.key});
@@ -11,6 +12,22 @@ class CreatePassword extends StatefulWidget {
 }
 
 class _CreatePasswordState extends State<CreatePassword> {
+  void checkIfLoggedIn() async {
+    final prefs = await SharedPreferences.getInstance();
+    final isLogged = prefs.getBool("loggedIn");
+    if (isLogged != null && isLogged == true) {
+      // ignore: use_build_context_synchronously
+      Navigator.pushReplacementNamed(context, home);
+    }
+  }
+
+  @override
+  void initState() {
+    checkIfLoggedIn();
+
+    super.initState();
+  }
+
   final formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {

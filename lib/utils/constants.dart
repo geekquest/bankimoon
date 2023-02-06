@@ -6,7 +6,7 @@ const home = '/home';
 const addAccount = '/add-account';
 
 // colors
-const btnColor = Color.fromARGB(255, 39, 135, 231);
+const btnColor = Color.fromARGB(255, 69, 39, 160);
 
 // styles
 const btnStyle = BoxDecoration(
