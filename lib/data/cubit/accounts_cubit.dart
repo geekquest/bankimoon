@@ -9,4 +9,16 @@ part 'accounts_state.dart';
 class AccountsCubit extends Cubit<AccountsState> {
   final Repository repository;
   AccountsCubit({required this.repository}) : super(AccountsInitial());
+
+  void createPassword(String password) {
+    emit(CreatingPassword());
+    repository.createPassword(password).then((value) {
+      print(value);
+      emit(
+        PasswordCreated(
+          msg: value['msg'],
+        ),
+      );
+    });
+  }
 }

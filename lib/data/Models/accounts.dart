@@ -1,11 +1,13 @@
 class Account {
   int id;
   String bankName;
-  String accountNumber;
+  String accountName;
+  int accountNumber;
 
   Account({
     required this.id,
     required this.bankName,
+    required this.accountName,
     required this.accountNumber,
   });
 
@@ -13,6 +15,7 @@ class Account {
     return Account(
       id: json['id'],
       bankName: json['bankName'],
+      accountName: json['accountName'],
       accountNumber: json['accountNumber'],
     );
   }
@@ -21,6 +24,7 @@ class Account {
     return {
       'bankName': bankName,
       'accountNumber': accountNumber,
+      'accountName': accountName,
     };
   }
 }

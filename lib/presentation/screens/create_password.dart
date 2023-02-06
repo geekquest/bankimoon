@@ -1,5 +1,7 @@
+import 'package:bankimoon/data/cubit/accounts_cubit.dart';
 import 'package:bankimoon/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreatePassword extends StatefulWidget {
   const CreatePassword({super.key});
@@ -57,14 +59,18 @@ class _CreatePasswordState extends State<CreatePassword> {
                         TextFormField(
                           controller: password,
                           validator: (value) {
-                            if (value == null) {
+                            if (value == '') {
                               return 'Please create your password';
+                            }
+
+                            if (value!.split('').length < 6) {
+                              return 'Password must have at least 6 characters';
                             }
 
                             return null;
                           },
                           keyboardType: TextInputType.emailAddress,
-                          obscureText: true,
+                          // obscureText: true,
                           enableSuggestions: true,
                           decoration: const InputDecoration(
                             prefixIcon: Icon(
@@ -101,20 +107,43 @@ class _CreatePasswordState extends State<CreatePassword> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            // final form = _formkey.currentState;
-                            // if (form != null && form.validate()) {
-                            //   BlocProvider.of<UserCubit>(context).login();
-                            // }
+                            final form = formkey.currentState;
+                            if (form != null && form.validate()) {
+                              BlocProvider.of<AccountsCubit>(context)
+                                  .createPassword(password.text.trim());
+                            }
                           },
                           child: Container(
                             width: MediaQuery.of(context).size.width * 0.8,
                             padding: const EdgeInsets.all(14.5),
                             decoration: btnStyle,
-                            child: const Text(
-                              "Create",
-                              textAlign: TextAlign.center,
-                              style: textStyle,
-                            ),
+                            child: BlocConsumer<AccountsCubit, AccountsState>(
+                                listener: (context, state) {
+                              if (state is PasswordCreated) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      state.msg,
+                                    ),
+                                  ),
+                                );
+                                Navigator.pushReplacementNamed(context, home);
+                              }
+                            }, builder: (context, state) {
+                              if (state is CreatingPassword) {
+                                return const Center(
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                );
+                              } else {
+                                return const Text(
+                                  "Create",
+                                  textAlign: TextAlign.center,
+                                  style: textStyle,
+                                );
+                              }
+                            }),
                           ),
                         ),
                       ],

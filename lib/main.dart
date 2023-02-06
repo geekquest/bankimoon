@@ -10,9 +10,10 @@ Future<void> main() async {
       MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: AppRouter().generateRoute,
+        theme: ThemeData(
+          useMaterial3: true,
+        ),
       ),
     );
   });
 }
-
-// https://medium.flutterdevs.com/sql-database-storage-using-sqlite-in-flutter-6e2fdcc8cfb7
