@@ -12,18 +12,6 @@ class AccountsCubit extends Cubit<AccountsState> {
   final Repository repository;
   AccountsCubit({required this.repository}) : super(AccountsInitial());
 
-// create a user password
-  void createPassword(String password) {
-    emit(CreatingPassword());
-    repository.createPassword(password).then((value) {
-      emit(
-        PasswordCreated(
-          msg: value['msg'],
-        ),
-      );
-    });
-  }
-
 //fetch user accounts
   void useraccounts() {
     emit(FetchingAccounts());
@@ -46,5 +34,17 @@ class AccountsCubit extends Cubit<AccountsState> {
         ),
       );
     });
+  }
+
+  // nuke all accounts from db
+  void nukeAccounts() {
+    emit(DeletingAccounts());
+    repository.deleteAccounts().then((value) => {
+          emit(
+            AccountsDeleted(
+              msg: value['msg'],
+            ),
+          )
+        });
   }
 }

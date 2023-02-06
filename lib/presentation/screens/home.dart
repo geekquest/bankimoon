@@ -1,6 +1,7 @@
 import 'package:bankimoon/data/cubit/accounts_cubit.dart';
 import 'package:bankimoon/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Home extends StatelessWidget {
@@ -17,6 +18,10 @@ class Home extends StatelessWidget {
           style: titleStyles,
         ),
         centerTitle: true,
+        leading: Icon(
+          Icons.ac_unit,
+          color: Colors.deepPurple[800],
+        ),
       ),
       body: BlocBuilder<AccountsCubit, AccountsState>(
         builder: (context, state) {
@@ -42,34 +47,66 @@ class Home extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
+                      children: const [
+                        Text(
                           "Your Accounts",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ),
                         ),
-                        GestureDetector(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 13,
-                              vertical: 5,
-                            ),
-                            decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(
-                                  50.0,
-                                )),
-                            child: const Text(
-                              'Clear All',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        )
+                        Text('') //placeholder for button
+                        // TODO: IMPLEMENT CLEAR ALL
+                        // BlocConsumer<AccountsCubit, AccountsState>(
+                        //   listener: (context, state) {
+                        //     if (state is AccountsDeleted) {
+                        //       ScaffoldMessenger.of(context).showSnackBar(
+                        //         SnackBar(
+                        //           content: Text(
+                        //             state.msg,
+                        //           ),
+                        //         ),
+                        //       );
+                        //       BlocProvider.of<AccountsCubit>(context)
+                        //           .useraccounts();
+                        //     }
+                        //   },
+                        //   builder: (context, state) {
+                        //     if (state is DeletingAccounts) {
+                        //       return Center(
+                        //         child: CircularProgressIndicator(
+                        //           color: Colors.deepPurple[800],
+                        //         ),
+                        //       );
+                        //     } else {
+                        //       return GestureDetector(
+                        //         onTap: () {
+                        //           // Navigator.of(context).
+                        //           BlocProvider.of<AccountsCubit>(context)
+                        //               .nukeAccounts();
+                        //         },
+                        //         child: Container(
+                        //           padding: const EdgeInsets.symmetric(
+                        //             horizontal: 13,
+                        //             vertical: 5,
+                        //           ),
+                        //           decoration: BoxDecoration(
+                        //               color: Colors.red,
+                        //               borderRadius: BorderRadius.circular(
+                        //                 50.0,
+                        //               )),
+                        //           child: const Text(
+                        //             'Clear All',
+                        //             style: TextStyle(
+                        //               color: Colors.white,
+                        //               fontWeight: FontWeight.bold,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       );
+                        //     }
+                        //   },
+                        // )
                       ],
                     ),
                   ),
@@ -93,9 +130,23 @@ class Home extends StatelessWidget {
                             subtitle: Text(
                               '${state.accounts[index].accountNumber.toString()} - ${state.accounts[index].accountName}',
                             ),
-                            trailing: const Icon(
-                              Icons.delete,
-                              color: Colors.red,
+                            trailing: GestureDetector(
+                              onTap: () {
+                                // copy data to clipboard
+                                Clipboard.setData(
+                                  ClipboardData(
+                                    text: state.accounts[index].accountNumber
+                                        .toString(),
+                                  ),
+                                );
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text("Copied to clipboard")));
+                              },
+                              child: const Icon(
+                                Icons.copy,
+                                color: Colors.deepPurple,
+                              ),
                             ),
                           ),
                         ),

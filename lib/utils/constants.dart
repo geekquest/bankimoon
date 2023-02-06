@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // routes
-const createpassword = '/';
+const splash = '/';
 const home = '/home';
 const addAccount = '/add-account';
 

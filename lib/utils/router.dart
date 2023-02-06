@@ -2,7 +2,7 @@ import 'package:bankimoon/data/cubit/accounts_cubit.dart';
 import 'package:bankimoon/data/database.dart';
 import 'package:bankimoon/data/repo.dart';
 import 'package:bankimoon/presentation/screens/add_account.dart';
-import 'package:bankimoon/presentation/screens/create_password.dart';
+import 'package:bankimoon/presentation/screens/splash_screen.dart';
 import 'package:bankimoon/presentation/screens/home.dart';
 import 'package:bankimoon/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -20,12 +20,9 @@ class AppRouter {
   // route generator
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case createpassword:
+      case splash:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => AccountsCubit(repository: repository),
-            child: const CreatePassword(),
-          ),
+          builder: (_) => const Splashscreen(),
         );
       case home:
         return MaterialPageRoute(

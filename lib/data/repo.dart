@@ -6,11 +6,6 @@ class Repository {
 
   Repository({required this.connection});
 
-  Future createPassword(String password) async {
-    final data = await connection.createPassword(password);
-    return data;
-  }
-
   Future getAccounts() async {
     final data = await connection.getAccountList();
     return data
@@ -29,6 +24,11 @@ class Repository {
       String institutionName, String accountName, String accountNumber) async {
     final data = await connection.addAccount(
         accountName, accountNumber, institutionName);
+    return data;
+  }
+
+  Future deleteAccounts() async {
+    final data = await connection.deleteAccounts();
     return data;
   }
 }
