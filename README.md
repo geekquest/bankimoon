@@ -1,16 +1,26 @@
-# bankimoon
+# Bankimoon
 
-A new Flutter project.
+A mobile app based on [@Zikani03](https://github.com/zikani03) bankimoon vue app with sqlite to store institution account numbers.
+Find it [here](https://github.com/geekquest/bankimoon)
 
-## Getting Started
+## Requirements
 
-This project is a starting point for a Flutter application.
+1. [Flutter](https://flutter.dev/)
 
-A few resources to get you started if this is your first Flutter project:
+# Project setup
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```
+git clone https://github.com/RodgerCodes/bankimoon-app
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+flutter pub get
+```
+
+```
+flutter run
+```
+
+| :warning: WARNING                                                                                         |
+| :-------------------------------------------------------------------------------------------------------- |
+| some Lower versions of flutter might cause problems with packages used, it is advised to user flutter 3.7 |
