@@ -10,11 +10,11 @@ Stack
 - Vue
 - Vite
 
-### If you are not part of the geekquest gh organization
+### If you don't have the geekquest gh organization permission
 
 Fork the repository from https://github.com/geekquest/bankimoon into your gh account the clone the repo
 
-### If you are part of the geekquest gh organization
+### If you have the geekquest gh organization permission
 
 Clone the application directly from git@github.com:geekquest/bankimoon.git
 
