@@ -12,6 +12,7 @@ export default {
       appTitle: "Bankimoon",
       activeTabName: "ALL",
       isEditingAccount: false,
+      isFirstTimeUser: false,
       availableServiceProviders: serviceProviders,
       newAccount: {
         org: '',
@@ -29,6 +30,8 @@ export default {
     if (existingAccounts) {
       let arr = JSON.parse(existingAccounts)
       this.accounts.push(...arr)
+    } else {
+      this.isFirstTimeUser = true;
     }
   },
 
@@ -198,8 +201,23 @@ export default {
 
     <van-button type="primary" round block @click="saveOrEditAccount">Save</van-button>
   </van-popup>
+
+  <van-popup v-model:show="isFirstTimeUser" closeable position="center">
+    <section class="intro">
+      <h4>👋 Hi, welcome to Bankimoon.</h4>
+      <p>Simple, secure app for keeping and remembering <em>Account Numbers</em> for Banks 💰, MASM 🏥, ESCOM 💡 etc.</p>
+      <p>
+        Stop ⛔ keeping Account Numbers as Phone Numbers 📞. Save Accounts quickly 📥 and Copy instantly with a Double tap ☝️☝️
+      </p>
+
+      <p>Click the button below to create your first account</p>
+      <van-button type="primary" round block @click="(evt) => { this.isFirstTimeUser = false; this.isEditingAccount = true }">📓 Add My First Account</van-button>
+    </section>
+  </van-popup>
 </template>
 
 <style scoped>
-
+.intro {
+  padding: 0.35em 0.5em;
+}
 </style>
