@@ -12,9 +12,11 @@ export default {
       appTitle: "Bankimoon",
       activeTabName: "ALL",
       isEditingAccount: false,
+      isAddingAccount: false,
       isFirstTimeUser: false,
       availableServiceProviders: serviceProviders,
       newAccount: {
+        _idx: null,
         org: '',
         name: '',
         accountNumber: '',
@@ -49,6 +51,10 @@ export default {
       return this.accounts;
     },
 
+    showAccountForm() {
+      return this.isEditingAccount || this.isAddingAccount;
+    },
+
     myAccounts() {
       return this.accounts.filter(acc => acc.mine)
     }
@@ -57,6 +63,7 @@ export default {
   methods: {
     resetNewAccount() {
       this.newAccount = {
+        _idx: null,
         org: '',
         name: '',
         accountNumber: '',
@@ -69,12 +76,19 @@ export default {
       if (this.newAccount.accountNumber.length < 1) {
         return;
       }
-      let accountData = Object.assign({}, this.newAccount)
-      this.accounts.push(accountData)
-      this.resetNewAccount()
-      this.isEditingAccount = false;
+      
+      if (this.isEditingAccount) {
+        this.resetNewAccount()
+      } else if (this.isAddingAccount) {
+        let accountData = Object.assign({}, this.newAccount)
+        this.accounts.push(accountData)
+        this.resetNewAccount()
+      }
+
+      this.hideAccountForm()
       this.saveAccountsToLocalStorage()
     },
+
     saveAccountsToLocalStorage() {
       let data = {
         lastSaveAt: new Date(),
@@ -87,6 +101,21 @@ export default {
     deleteSelectedAccount(idx, account) {
       this.accounts.splice(idx, 1)
       this.saveAccountsToLocalStorage()
+    },
+
+    addNewAccount() {
+      this.isAddingAccount = true
+    },
+
+    hideAccountForm() {
+      this.isAddingAccount = false;
+      this.isEditingAccount = false
+    },
+
+    editSelectedAccount(idx, account) {
+      this.newAccount = this.accounts[idx]
+      this.newAccount._idx = idx;
+      this.isEditingAccount = true
     },
 
     copyAccountToClipboard(account) {
@@ -133,12 +162,13 @@ export default {
             <span>{{ account.org }}</span>
           </van-cell>
           <template #right>
+            <van-button square type="primary" text="Edit" @click="editSelectedAccount(idx, account)" />
             <van-button square type="danger" text="Delete" @click="deleteSelectedAccount(idx, account)" />
           </template>
         </van-swipe-cell>
       </van-cell-group>
       <van-cell-group>
-        <van-button type="primary" size="large" @click="isEditingAccount = !this.isEditingAccount">Add
+        <van-button type="primary" size="large" @click="addNewAccount()">Add
           Account</van-button>
       </van-cell-group>
     </van-tab>
@@ -158,6 +188,7 @@ export default {
             <span>{{ account.org }}</span>
           </van-cell>
           <template #right>
+            <van-button square type="primary" text="Edit" @click="editSelectedAccount(idx, account)" />
             <van-button square type="danger" text="Delete" @click="deleteSelectedAccount(idx, account)" />
           </template>
         </van-swipe-cell>
@@ -175,7 +206,7 @@ export default {
     </van-tab> -->
   </van-tabs>
 
-  <van-popup v-model:show="isEditingAccount" closeable position="bottom" :style="{ height: '70%' }">
+  <van-popup v-model:show="showAccountForm" closeable position="bottom" :style="{ height: '70%' }">
     <van-cell title="Add Account"></van-cell>
 
     <van-field v-model="newAccount.name" name="accountName" label="Name"
