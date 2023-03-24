@@ -57,6 +57,10 @@ export default {
 
     myAccounts() {
       return this.accounts.filter(acc => acc.mine)
+    },
+
+    favAccounts() {
+      return this.accounts.filter(acc => acc.fav)
     }
   },
 
@@ -175,6 +179,28 @@ export default {
     <van-tab title="MINE" name="myAccounts">
       <van-cell-group>
         <van-swipe-cell v-for="(account, idx) in myAccounts" v-on:close="onSwipeLeft"
+          @dblclick="copyAccountToClipboard(account)">
+          <template #left>
+            <van-button square type="primary" text="Copy" @click="copyAccountToClipboard(account)" />
+          </template>
+          <van-cell :border="false" :key="account.accountNumber" :title="account.name">
+            <div>
+              <van-tag plain type="primary" @click="copyAccountToClipboard(account)">{{
+                account.accountNumber
+              }}</van-tag>
+            </div>
+            <span>{{ account.org }}</span>
+          </van-cell>
+          <template #right>
+            <van-button square type="primary" text="Edit" @click="editSelectedAccount(idx, account)" />
+            <van-button square type="danger" text="Delete" @click="deleteSelectedAccount(idx, account)" />
+          </template>
+        </van-swipe-cell>
+      </van-cell-group>
+    </van-tab>
+    <van-tab title="Favourites" name="favAccounts">
+      <van-cell-group>
+        <van-swipe-cell v-for="(account, idx) in favAccounts" v-on:close="onSwipeLeft"
           @dblclick="copyAccountToClipboard(account)">
           <template #left>
             <van-button square type="primary" text="Copy" @click="copyAccountToClipboard(account)" />
