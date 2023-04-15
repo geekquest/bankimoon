@@ -28,7 +28,6 @@ Make sure you are working from the 'ui' directory within your terminal
 
     cd bankimoon/ui
 
-
 ## Preparing the application
 
 Assuming you are in the 'ui' directory, that's were the package.json file resides
@@ -45,4 +44,33 @@ Run the app with the following command and your app should be accessible in the 
 
 ## Contributing to development
 
-##TODO
+# Bankimoon Mobile App
+
+A bankimoon mobile app written in flutter with sqlite to store institution account numbers.
+Find it [here](https://github.com/geekquest/bankimoon)
+
+## Requirements
+
+1. [Flutter](https://flutter.dev/)
+
+# Project setup
+
+```
+git clone https://github.com/RodgerCodes/bankimoon-app
+```
+
+```
+cd app
+```
+
+```
+flutter pub get
+```
+
+```
+flutter run
+```
+
+| :warning: WARNING                                                                                         |
+| :-------------------------------------------------------------------------------------------------------- |
+| some Lower versions of flutter might cause problems with packages used, it is advised to user flutter 3.7 |
