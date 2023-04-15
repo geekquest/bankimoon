@@ -14,6 +14,10 @@ git clone https://github.com/RodgerCodes/bankimoon-app
 ```
 
 ```
+cd app
+```
+
+```
 flutter pub get
 ```
 
