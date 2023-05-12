@@ -123,12 +123,12 @@ class Home extends StatelessWidget {
                         child: Card(
                           child: ListTile(
                             title: Text(
-                              state.accounts[index].bankName,
+                              state.accounts[index].accountName,
                               style:
                                   const TextStyle(fontWeight: FontWeight.bold),
                             ),
                             subtitle: Text(
-                              '${state.accounts[index].accountNumber.toString()} - ${state.accounts[index].accountName}',
+                              '${state.accounts[index].accountNumber.toString()} - ${state.accounts[index].bankName}',
                             ),
                             trailing: GestureDetector(
                               onTap: () {
