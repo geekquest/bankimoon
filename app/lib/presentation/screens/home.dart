@@ -48,52 +48,15 @@ class Home extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
+                      children: const [
+                        Text(
                           "Your Accounts",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ),
                         ),
-                        BlocListener<AccountsCubit, AccountsState>(
-                          listener: (context, state) {
-                            if (state is AccountsDeleted) {
-                              // display message
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(state.msg),
-                                ),
-                              );
-
-                              // refetch user accounts
-                              BlocProvider.of<AccountsCubit>(context)
-                                  .useraccounts();
-                            }
-                          },
-                          child: GestureDetector(
-                            onTap: () {
-                              BlocProvider.of<AccountsCubit>(context)
-                                  .nukeAccounts();
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: Colors.deepPurple,
-                                borderRadius: BorderRadius.circular(
-                                  6,
-                                ),
-                              ),
-                              child: const Text(
-                                'Clear All',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ) //placeholder for button
+                        //placeholder for button
                         // TODO: IMPLEMENT CLEAR ALL
                       ],
                     ),
