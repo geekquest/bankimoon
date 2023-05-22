@@ -148,7 +148,7 @@ class Home extends StatelessWidget {
                                 GestureDetector(
                                   onTap: () {
                                     Share.share(
-                                      "${state.accounts[index].bankName} account Number \n ${state.accounts[index].accountNumber} \n Account Name: ${state.accounts[index].accountName}",
+                                      "${state.accounts[index].bankName} \nName: ${state.accounts[index].accountName} \nAccount Number: ${state.accounts[index].accountNumber} \n \nShared from Bankimoon App",
                                     );
                                   },
                                   child: const Icon(
