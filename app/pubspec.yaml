@@ -41,6 +41,7 @@ dependencies:
   shared_preferences: ^2.0.17
   google_fonts: ^4.0.3
   flutter_spinkit: ^5.1.0
+  share_plus: ^7.0.1
 
 dev_dependencies:
   flutter_test:

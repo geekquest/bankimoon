@@ -3,6 +3,7 @@ import 'package:bankimoon/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_plus/share_plus.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -55,63 +56,13 @@ class Home extends StatelessWidget {
                             fontSize: 20,
                           ),
                         ),
-                        Text('') //placeholder for button
+                        //placeholder for button
                         // TODO: IMPLEMENT CLEAR ALL
-                        // BlocConsumer<AccountsCubit, AccountsState>(
-                        //   listener: (context, state) {
-                        //     if (state is AccountsDeleted) {
-                        //       ScaffoldMessenger.of(context).showSnackBar(
-                        //         SnackBar(
-                        //           content: Text(
-                        //             state.msg,
-                        //           ),
-                        //         ),
-                        //       );
-                        //       BlocProvider.of<AccountsCubit>(context)
-                        //           .useraccounts();
-                        //     }
-                        //   },
-                        //   builder: (context, state) {
-                        //     if (state is DeletingAccounts) {
-                        //       return Center(
-                        //         child: CircularProgressIndicator(
-                        //           color: Colors.deepPurple[800],
-                        //         ),
-                        //       );
-                        //     } else {
-                        //       return GestureDetector(
-                        //         onTap: () {
-                        //           // Navigator.of(context).
-                        //           BlocProvider.of<AccountsCubit>(context)
-                        //               .nukeAccounts();
-                        //         },
-                        //         child: Container(
-                        //           padding: const EdgeInsets.symmetric(
-                        //             horizontal: 13,
-                        //             vertical: 5,
-                        //           ),
-                        //           decoration: BoxDecoration(
-                        //               color: Colors.red,
-                        //               borderRadius: BorderRadius.circular(
-                        //                 50.0,
-                        //               )),
-                        //           child: const Text(
-                        //             'Clear All',
-                        //             style: TextStyle(
-                        //               color: Colors.white,
-                        //               fontWeight: FontWeight.bold,
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       );
-                        //     }
-                        //   },
-                        // )
                       ],
                     ),
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 5,
                   ),
                   ListView.builder(
                     shrinkWrap: true,
@@ -130,23 +81,45 @@ class Home extends StatelessWidget {
                             subtitle: Text(
                               '${state.accounts[index].accountNumber.toString()} - ${state.accounts[index].bankName}',
                             ),
-                            trailing: GestureDetector(
-                              onTap: () {
-                                // copy data to clipboard
-                                Clipboard.setData(
-                                  ClipboardData(
-                                    text: state.accounts[index].accountNumber
-                                        .toString(),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    // copy data to clipboard
+                                    Clipboard.setData(
+                                      ClipboardData(
+                                        text: state
+                                            .accounts[index].accountNumber
+                                            .toString(),
+                                      ),
+                                    );
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text("Copied to clipboard"),
+                                      ),
+                                    );
+                                  },
+                                  child: const Icon(
+                                    Icons.copy,
+                                    color: Colors.deepPurple,
                                   ),
-                                );
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text("Copied to clipboard")));
-                              },
-                              child: const Icon(
-                                Icons.copy,
-                                color: Colors.deepPurple,
-                              ),
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Share.share(
+                                      "${state.accounts[index].bankName} \nName: ${state.accounts[index].accountName} \nAccount Number: ${state.accounts[index].accountNumber} \n \nShared from Bankimoon App",
+                                    );
+                                  },
+                                  child: const Icon(
+                                    Icons.share,
+                                    color: Colors.deepPurple,
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         ),

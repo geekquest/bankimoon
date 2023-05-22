@@ -10,7 +10,11 @@ Find it [here](https://github.com/geekquest/bankimoon)
 # Project setup
 
 ```
-git clone https://github.com/RodgerCodes/bankimoon-app
+git clone https://github.com/geekquest/bankimoon
+```
+
+```
+cd app
 ```
 
 ```
