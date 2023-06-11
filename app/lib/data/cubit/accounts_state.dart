@@ -29,6 +29,14 @@ class AccountSubmitted extends AccountsState {
   AccountSubmitted({required this.msg});
 }
 
+class DeletingAccount extends AccountsState {}
+
+class AccountDeleted extends AccountsState {
+  final String msg;
+
+  AccountDeleted({required this.msg});
+}
+
 class DeletingAccounts extends AccountsState {}
 
 class AccountsDeleted extends AccountsState {

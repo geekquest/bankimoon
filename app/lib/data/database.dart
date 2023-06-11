@@ -75,6 +75,17 @@ class DbManager {
     };
   }
 
+  // delete account
+  Future deleteAccount(int id) async {
+    await openDb();
+
+    await _database.delete("accounts", where: 'id = ?', whereArgs: [id]);
+
+    return {
+      'msg': 'All accounts deleted',
+    };
+  }
+
   // delete all accounts
   Future deleteAccounts() async {
     await openDb();
