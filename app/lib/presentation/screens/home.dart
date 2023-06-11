@@ -84,18 +84,15 @@ class Home extends StatelessWidget {
                                   child: const Text('Cancel'),
                                 ),
                                 TextButton(
-                                  onPressed: () {
-                                    BlocProvider.of<AccountsCubit>(context)
-                                        .deleteAccount(
-                                            state.accounts[index].id);
-
-                                    Navigator.pop(ctx, true);
-                                  },
+                                  onPressed: () => Navigator.pop(ctx, true),
                                   child: const Text('Yes'),
                                 ),
                               ],
                             ),
                           ),
+                          onDismissed: (direction) =>
+                              BlocProvider.of<AccountsCubit>(context)
+                                  .deleteAccount(state.accounts[index].id),
                           key: Key(state.accounts[index].id.toString()),
                           child: Card(
                             child: ListTile(
