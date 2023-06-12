@@ -82,7 +82,7 @@ class DbManager {
     await _database.delete("accounts", where: 'id = ?', whereArgs: [id]);
 
     return {
-      'msg': 'All accounts deleted',
+      'msg': 'Account deleted',
     };
   }
 
