@@ -75,7 +75,22 @@ class Home extends StatelessWidget {
                           confirmDismiss: (direction) => showDialog<bool>(
                             context: context,
                             builder: (BuildContext ctx) => AlertDialog(
-                              title: const Text('Alert'),
+                              title: const Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                spacing: 10,
+                                children: [
+                                  Text(
+                                    'Delete account',
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.warning_amber_rounded,
+                                    color: Colors.red,
+                                  ),
+                                ],
+                              ),
                               content: Text(
                                   'Are you sure you want to delete ${state.accounts[index].accountName} account?'),
                               actions: <Widget>[
@@ -90,9 +105,13 @@ class Home extends StatelessWidget {
                               ],
                             ),
                           ),
-                          onDismissed: (direction) =>
+                          direction: DismissDirection.startToEnd,
+                          onDismissed: (direction) {
+                            if (direction == DismissDirection.startToEnd) {
                               BlocProvider.of<AccountsCubit>(context)
-                                  .deleteAccount(state.accounts[index].id),
+                                  .deleteAccount(state.accounts[index].id);
+                            }
+                          },
                           key: Key(state.accounts[index].id.toString()),
                           child: Card(
                             child: ListTile(
