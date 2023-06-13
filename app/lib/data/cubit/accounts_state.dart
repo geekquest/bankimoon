@@ -36,3 +36,9 @@ class AccountsDeleted extends AccountsState {
 
   AccountsDeleted({required this.msg});
 }
+
+class AccountSearchResults extends AccountsState {
+  final List accounts;
+
+  AccountSearchResults({required this.accounts});
+}

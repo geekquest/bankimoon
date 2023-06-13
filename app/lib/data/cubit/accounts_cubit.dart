@@ -36,6 +36,13 @@ class AccountsCubit extends Cubit<AccountsState> {
     });
   }
 
+  // Search account
+  void searchAccount(String query) {
+    repository.searchAccount(query).then((value) {
+      emit(AccountSearchResults(accounts: value));
+    });
+  }
+
   // nuke all accounts from db
   void nukeAccounts() {
     emit(DeletingAccounts());

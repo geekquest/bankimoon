@@ -84,4 +84,13 @@ class DbManager {
       'msg': 'All accounts deleted',
     };
   }
+
+  Future searchAccount(String searchQuery) async {
+    await openDb();
+
+    final results = await _database.rawQuery(
+        "SELECT * FROM accounts WHERE accountName LIKE '%$searchQuery%' OR accountNumber LIKE '%$searchQuery%'");
+
+    return results;
+  }
 }
