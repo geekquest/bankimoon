@@ -75,7 +75,7 @@ class Home extends StatelessWidget {
                           confirmDismiss: (direction) => showDialog<bool>(
                             context: context,
                             builder: (BuildContext ctx) => AlertDialog(
-                              title: const Wrap(
+                              title: Wrap(
                                 crossAxisAlignment: WrapCrossAlignment.center,
                                 spacing: 10,
                                 children: [
