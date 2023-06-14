@@ -36,6 +36,17 @@ class AccountsCubit extends Cubit<AccountsState> {
     });
   }
 
+  // delete account
+  void deleteAccount(int id) {
+    repository.deleteAccount(id);
+
+    repository.getAccounts().then((value) {
+      emit(
+        AccountsFetched(accounts: value),
+      );
+    });
+  }
+
   // nuke all accounts from db
   void nukeAccounts() {
     emit(DeletingAccounts());

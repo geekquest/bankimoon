@@ -71,55 +71,99 @@ class Home extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Card(
-                          child: ListTile(
-                            title: Text(
-                              state.accounts[index].accountName,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            subtitle: Text(
-                              '${state.accounts[index].accountNumber.toString()} - ${state.accounts[index].bankName}',
-                            ),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    // copy data to clipboard
-                                    Clipboard.setData(
-                                      ClipboardData(
-                                        text: state
-                                            .accounts[index].accountNumber
-                                            .toString(),
-                                      ),
-                                    );
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text("Copied to clipboard"),
-                                      ),
-                                    );
-                                  },
-                                  child: const Icon(
-                                    Icons.copy,
-                                    color: Colors.deepPurple,
+                        child: Dismissible(
+                          confirmDismiss: (direction) => showDialog<bool>(
+                            context: context,
+                            builder: (BuildContext ctx) => AlertDialog(
+                              title: Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                spacing: 10,
+                                children: [
+                                  Text(
+                                    'Delete account',
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Share.share(
-                                      "${state.accounts[index].bankName} \nName: ${state.accounts[index].accountName} \nAccount Number: ${state.accounts[index].accountNumber} \n \nShared from Bankimoon App",
-                                    );
-                                  },
-                                  child: const Icon(
-                                    Icons.share,
-                                    color: Colors.deepPurple,
+                                  Icon(
+                                    Icons.warning_amber_rounded,
+                                    color: Colors.red,
                                   ),
-                                )
+                                ],
+                              ),
+                              content: Text(
+                                  'Are you sure you want to delete ${state.accounts[index].accountName} account?'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.pop(ctx, false),
+                                  child: const Text('Cancel'),
+                                ),
+                                TextButton(
+                                  onPressed: () => Navigator.pop(ctx, true),
+                                  child: const Text('Yes'),
+                                ),
                               ],
+                            ),
+                          ),
+                          direction: DismissDirection.startToEnd,
+                          onDismissed: (direction) {
+                            if (direction == DismissDirection.startToEnd) {
+                              BlocProvider.of<AccountsCubit>(context)
+                                  .deleteAccount(state.accounts[index].id);
+                            }
+                          },
+                          key: Key(state.accounts[index].id.toString()),
+                          child: Card(
+                            child: ListTile(
+                              title: Text(
+                                state.accounts[index].accountName,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                '${state.accounts[index].accountNumber.toString()} - ${state.accounts[index].bankName}',
+                              ),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      // copy data to clipboard
+                                      Clipboard.setData(
+                                        ClipboardData(
+                                          text: state
+                                              .accounts[index].accountNumber
+                                              .toString(),
+                                        ),
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text("Copied to clipboard"),
+                                        ),
+                                      );
+                                    },
+                                    child: const Icon(
+                                      Icons.copy,
+                                      color: Colors.deepPurple,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Share.share(
+                                        "${state.accounts[index].bankName} \nName: ${state.accounts[index].accountName} \nAccount Number: ${state.accounts[index].accountNumber} \n \nShared from Bankimoon App",
+                                      );
+                                    },
+                                    child: const Icon(
+                                      Icons.share,
+                                      color: Colors.deepPurple,
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
