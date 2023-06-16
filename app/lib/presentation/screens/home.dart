@@ -86,6 +86,7 @@ class Home extends StatelessWidget {
                     height: 5,
                   ),
                   ListView.builder(
+                    padding: const EdgeInsets.only(bottom: 100),
                     shrinkWrap: true,
                     physics: const ScrollPhysics(),
                     itemCount: state.accounts.length,

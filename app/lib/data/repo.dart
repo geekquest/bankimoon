@@ -27,6 +27,10 @@ class Repository {
     return data;
   }
 
+  Future<void> deleteAccount(int id) async {
+    await connection.deleteAccount(id);
+  }
+
   Future deleteAccounts() async {
     final data = await connection.deleteAccounts();
     return data;

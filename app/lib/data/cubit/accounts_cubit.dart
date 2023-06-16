@@ -40,6 +40,15 @@ class AccountsCubit extends Cubit<AccountsState> {
   void searchAccount(String query) {
     repository.searchAccount(query).then((value) {
       emit(AccountSearchResults(accounts: value));
+
+  // delete account
+  void deleteAccount(int id) {
+    repository.deleteAccount(id);
+
+    repository.getAccounts().then((value) {
+      emit(
+        AccountsFetched(accounts: value),
+      );
     });
   }
 
