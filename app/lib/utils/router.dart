@@ -1,9 +1,9 @@
 import 'package:bankimoon/data/cubit/accounts_cubit.dart';
 import 'package:bankimoon/data/database.dart';
 import 'package:bankimoon/data/repo.dart';
-import 'package:bankimoon/presentation/screens/add_account.dart';
-import 'package:bankimoon/presentation/screens/splash_screen.dart';
-import 'package:bankimoon/presentation/screens/home.dart';
+import 'package:bankimoon/features/account/screens/add_account.dart';
+import 'package:bankimoon/features/splash/screens/splash_screen.dart';
+import 'package:bankimoon/features/home/screens/home.dart';
 import 'package:bankimoon/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

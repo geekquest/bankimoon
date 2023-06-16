@@ -1,5 +1,5 @@
 import 'package:bankimoon/data/cubit/accounts_cubit.dart';
-import 'package:bankimoon/presentation/widgets/account_card.dart';
+import 'package:bankimoon/features/home/widgets/account_card.dart';
 import 'package:bankimoon/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
