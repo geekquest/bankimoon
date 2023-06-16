@@ -91,13 +91,64 @@ class Home extends StatelessWidget {
                     physics: const ScrollPhysics(),
                     itemCount: state.accounts.length,
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: AccountCard(
-                          accountName: state.accounts[index].accountName,
-                          accountNumber:
-                              state.accounts[index].accountNumber.toString(),
-                          bankName: state.accounts[index].bankName,
+                      return Dismissible(
+                        onDismissed: (direction) {
+                          if (direction == DismissDirection.startToEnd) {
+                            BlocProvider.of<AccountsCubit>(context)
+                                .deleteAccount(state.accounts[index].id);
+                          }
+                        },
+                        key: Key(state.accounts[index].id.toString()),
+                        direction: DismissDirection.startToEnd,
+                        confirmDismiss: (direction) async {
+                          if (direction == DismissDirection.startToEnd) {
+                            return showDialog<bool>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Wrap(
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  spacing: 10,
+                                  children: [
+                                    Text(
+                                      'Delete account',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                    Icon(
+                                      Icons.warning_amber_rounded,
+                                      color: Colors.red,
+                                    ),
+                                  ],
+                                ),
+                                content: Text(
+                                    'Are you sure you want to delete ${state.accounts[index].accountName} account?'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, false),
+                                    child: const Text('Cancel'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, true),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+
+                          return false;
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: AccountCard(
+                            accountName: state.accounts[index].accountName,
+                            accountNumber:
+                                state.accounts[index].accountNumber.toString(),
+                            bankName: state.accounts[index].bankName,
+                          ),
                         ),
                       );
                     },
