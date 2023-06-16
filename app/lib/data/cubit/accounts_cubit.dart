@@ -1,4 +1,3 @@
-import 'package:bankimoon/data/Models/accounts.dart';
 import 'package:bankimoon/data/repo.dart';
 // ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
