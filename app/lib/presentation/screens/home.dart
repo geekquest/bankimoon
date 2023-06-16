@@ -1,9 +1,8 @@
 import 'package:bankimoon/data/cubit/accounts_cubit.dart';
+import 'package:bankimoon/presentation/widgets/account_card.dart';
 import 'package:bankimoon/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:share_plus/share_plus.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -22,6 +21,28 @@ class Home extends StatelessWidget {
         leading: Icon(
           Icons.ac_unit,
           color: Colors.deepPurple[800],
+        ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(50.0),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              height: 45.0,
+              child: SearchBar(
+                leading: const Icon(Icons.search),
+                hintText: "Search",
+                onChanged: (value) {
+                  if (value.isNotEmpty) {
+                    BlocProvider.of<AccountsCubit>(context)
+                        .searchAccount(value.toString());
+                  } else {
+                    BlocProvider.of<AccountsCubit>(context).useraccounts();
+                  }
+                },
+              ),
+              //width: 300.0,
+            ),
+          ),
         ),
       ),
       body: BlocBuilder<AccountsCubit, AccountsState>(
@@ -44,11 +65,11 @@ class Home extends StatelessWidget {
             } else {
               return ListView(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children: [
                         Text(
                           "Your Accounts",
                           style: TextStyle(
@@ -72,101 +93,83 @@ class Home extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Dismissible(
-                          confirmDismiss: (direction) => showDialog<bool>(
-                            context: context,
-                            builder: (BuildContext ctx) => AlertDialog(
-                              title: Wrap(
-                                crossAxisAlignment: WrapCrossAlignment.center,
-                                spacing: 10,
-                                children: [
-                                  Text(
-                                    'Delete account',
-                                    style: TextStyle(
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                  Icon(
-                                    Icons.warning_amber_rounded,
-                                    color: Colors.red,
-                                  ),
-                                ],
-                              ),
-                              content: Text(
-                                  'Are you sure you want to delete ${state.accounts[index].accountName} account?'),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () => Navigator.pop(ctx, false),
-                                  child: const Text('Cancel'),
-                                ),
-                                TextButton(
-                                  onPressed: () => Navigator.pop(ctx, true),
-                                  child: const Text('Yes'),
-                                ),
-                              ],
+                        child: AccountCard(
+                          accountName: state.accounts[index].accountName,
+                          accountNumber:
+                              state.accounts[index].accountNumber.toString(),
+                          bankName: state.accounts[index].bankName,
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              );
+            }
+          } else if (state is AccountSearchResults) {
+            if (state.accounts.isEmpty) {
+              return SizedBox(
+                height: size.height,
+                width: size.width,
+                child: const Center(
+                  child: Text(
+                    'Account not found',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              );
+            } else {
+              return ListView(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Account Search Results",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        if (state.accounts.length == 1)
+                          Text(
+                            "${state.accounts.length} result",
+                            style: const TextStyle(
+                              fontSize: 12,
+                            ),
+                          )
+                        else
+                          Text(
+                            "${state.accounts.length} results",
+                            style: const TextStyle(
+                              fontSize: 12,
                             ),
                           ),
-                          direction: DismissDirection.startToEnd,
-                          onDismissed: (direction) {
-                            if (direction == DismissDirection.startToEnd) {
-                              BlocProvider.of<AccountsCubit>(context)
-                                  .deleteAccount(state.accounts[index].id);
-                            }
-                          },
-                          key: Key(state.accounts[index].id.toString()),
-                          child: Card(
-                            child: ListTile(
-                              title: Text(
-                                state.accounts[index].accountName,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              subtitle: Text(
-                                '${state.accounts[index].accountNumber.toString()} - ${state.accounts[index].bankName}',
-                              ),
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      // copy data to clipboard
-                                      Clipboard.setData(
-                                        ClipboardData(
-                                          text: state
-                                              .accounts[index].accountNumber
-                                              .toString(),
-                                        ),
-                                      );
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content: Text("Copied to clipboard"),
-                                        ),
-                                      );
-                                    },
-                                    child: const Icon(
-                                      Icons.copy,
-                                      color: Colors.deepPurple,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Share.share(
-                                        "${state.accounts[index].bankName} \nName: ${state.accounts[index].accountName} \nAccount Number: ${state.accounts[index].accountNumber} \n \nShared from Bankimoon App",
-                                      );
-                                    },
-                                    child: const Icon(
-                                      Icons.share,
-                                      color: Colors.deepPurple,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
+
+                        //placeholder for button
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const ScrollPhysics(),
+                    itemCount: state.accounts.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: AccountCard(
+                          accountName: state.accounts[index].accountName,
+                          accountNumber:
+                              state.accounts[index].accountNumber.toString(),
+                          bankName: state.accounts[index].bankName,
                         ),
                       );
                     },

@@ -95,4 +95,20 @@ class DbManager {
       'msg': 'All accounts deleted',
     };
   }
+
+  Future searchAccount(String searchQuery) async {
+    await openDb();
+
+    String sql =
+        "SELECT * FROM accounts WHERE accountName LIKE ? OR accountNumber LIKE ?";
+
+    List<dynamic> params = [
+      '%${searchQuery.trim()}%',
+      '%${searchQuery.trim()}%'
+    ];
+
+    final results = await _database.rawQuery(sql, params);
+
+    return results;
+  }
 }

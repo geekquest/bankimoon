@@ -35,4 +35,19 @@ class Repository {
     final data = await connection.deleteAccounts();
     return data;
   }
+
+  Future searchAccount(String query) async {
+    final data = await connection.searchAccount(query);
+
+    return data
+        .map(
+          (e) => Account(
+            id: e['id'],
+            bankName: e['bankName'],
+            accountName: e['accountName'],
+            accountNumber: e['accountNumber'],
+          ),
+        )
+        .toList();
+  }
 }
