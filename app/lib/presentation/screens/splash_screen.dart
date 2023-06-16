@@ -10,7 +10,7 @@ class Splashscreen extends StatefulWidget {
 }
 
 class _SplashscreenState extends State<Splashscreen> {
-  void Delay() async {
+  void delay() async {
     await Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacementNamed(context, home);
     });
@@ -19,7 +19,7 @@ class _SplashscreenState extends State<Splashscreen> {
   @override
   void initState() {
     // checkIfLoggedIn();
-    Delay();
+    delay();
 
     super.initState();
   }
