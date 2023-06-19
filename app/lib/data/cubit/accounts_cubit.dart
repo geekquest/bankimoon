@@ -1,4 +1,3 @@
-import 'package:bankimoon/data/Models/accounts.dart';
 import 'package:bankimoon/data/repo.dart';
 // ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
@@ -32,6 +31,24 @@ class AccountsCubit extends Cubit<AccountsState> {
         AccountSubmitted(
           msg: value['msg'],
         ),
+      );
+    });
+  }
+
+  // Search account
+  void searchAccount(String query) {
+    repository.searchAccount(query).then((value) {
+      emit(AccountSearchResults(accounts: value));
+    });
+  }
+
+  // delete account
+  void deleteAccount(int id) {
+    repository.deleteAccount(id);
+
+    repository.getAccounts().then((value) {
+      emit(
+        AccountsFetched(accounts: value),
       );
     });
   }
