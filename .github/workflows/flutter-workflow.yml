@@ -16,11 +16,20 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'beta'
-      - run: cd app
-      - run: flutter pub get
-      - run: flutter format --set-exit-if-changed .
-      - run: flutter analyze .
-      - run: flutter build apk --split-per-abi
+      - name: Change to app directory
+        run: cd app
+      - name: Get dependencies
+        run: flutter pub get
+        working-directory: app
+      - name: Format code
+        run: flutter format --set-exit-if-changed.
+        working-directory: app
+      - name: Analyze code
+        run: flutter analyze .
+        working-directory: app
+      - name:  Build APK
+        run: flutter build apk --split-per-abi
+        working-directory: app
       - uses: actions/upload-artifact@v1
         with:
           name: release-apk
