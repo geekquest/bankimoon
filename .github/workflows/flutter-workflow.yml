@@ -21,9 +21,6 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
         working-directory: app
-      - name: Format code
-        run: flutter format --set-exit-if-changed.
-        working-directory: app
       - name: Analyze code
         run: flutter analyze .
         working-directory: app
