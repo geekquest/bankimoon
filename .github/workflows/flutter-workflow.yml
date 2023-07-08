@@ -27,7 +27,7 @@ jobs:
       - name:  Build APK
         run: flutter build apk --split-per-abi
         working-directory: app
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v3
         with:
           name: release-apk
           path: ./app/build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
