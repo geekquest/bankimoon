@@ -1,0 +1,33 @@
+name: Flutter CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'beta'
+      - name: Change to app directory
+        run: cd app
+      - name: Get dependencies
+        run: flutter pub get
+        working-directory: app
+      - name: Analyze code
+        run: flutter analyze .
+        working-directory: app
+      - name:  Build APK
+        run: flutter build apk --split-per-abi
+        working-directory: app
+      - uses: actions/upload-artifact@v3
+        with:
+          name: release-apk
+          path: ./app/build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
