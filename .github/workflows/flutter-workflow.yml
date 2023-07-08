@@ -37,6 +37,8 @@ jobs:
           prerelease: false
           release_name: New App release
           tag_name: ${{ github.ref }}
+        env:
+           GITHUB_TOKEN: ${{ github.token }}
           # body_path: CHANGELOG.md
       # - uses: actions/upload-artifact@v3
       - uses: actions/upload-release-asset@v1
