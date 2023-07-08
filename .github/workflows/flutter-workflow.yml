@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    tags:
+       - '*'
 
 jobs:
   build:
@@ -27,7 +29,23 @@ jobs:
       - name:  Build APK
         run: flutter build apk --split-per-abi
         working-directory: app
-      - uses: actions/upload-artifact@v3
+      - name: release
+        uses: actions/create-release@v1
+        id: create_release
         with:
-          name: release-apk
-          path: ./app/build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+          draft: false
+          prerelease: false
+          release_name: New App release
+          tag_name: ${{ github.ref }}
+          # body_path: CHANGELOG.md
+      # - uses: actions/upload-artifact@v3
+      - uses: actions/upload-release-asset@v1
+        with:
+          asset_name: Bankimoon apk
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./app/build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+          asset_content_type: application/apk
+        # with:
+        #   name: release-apk
+        #   path: ./app/build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+      
