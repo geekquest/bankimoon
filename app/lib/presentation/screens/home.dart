@@ -4,6 +4,8 @@ import 'package:bankimoon/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../widgets/buttons.dart';
+
 class Home extends StatelessWidget {
   const Home({super.key});
 
@@ -13,15 +15,16 @@ class Home extends StatelessWidget {
     BlocProvider.of<AccountsCubit>(context).useraccounts();
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Bankimoon",
+        actions: const <Widget>[
+          SearchButton(),
+          SettingsButton(),
+        ],
+        automaticallyImplyLeading: false,
+        title: Text(
+          Strings.title,
           style: titleStyles,
         ),
-        centerTitle: true,
-        leading: Icon(
-          Icons.ac_unit,
-          color: Colors.deepPurple[800],
-        ),
+        centerTitle: false,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50.0),
           child: Padding(
@@ -52,10 +55,10 @@ class Home extends StatelessWidget {
               return SizedBox(
                 height: size.height,
                 width: size.width,
-                child: const Center(
+                child: Center(
                   child: Text(
-                    'No accounts saved',
-                    style: TextStyle(
+                    Strings.noAcc,
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                     ),
@@ -65,11 +68,11 @@ class Home extends StatelessWidget {
             } else {
               return ListView(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Your Accounts",
-                      style: TextStyle(
+                      Strings.yourAcc,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),
@@ -88,7 +91,9 @@ class Home extends StatelessWidget {
                         onDismissed: (direction) {
                           if (direction == DismissDirection.startToEnd) {
                             BlocProvider.of<AccountsCubit>(context)
-                                .deleteAccount(state.accounts[index].id);
+                                .deleteAccount(
+                              state.accounts[index].id,
+                            );
                           }
                         },
                         key: Key(state.accounts[index].id.toString()),
@@ -115,7 +120,8 @@ class Home extends StatelessWidget {
                                   ],
                                 ),
                                 content: Text(
-                                    'Are you sure you want to delete ${state.accounts[index].accountName} account?'),
+                                  'Are you sure you want to delete ${state.accounts[index].accountName} account?',
+                                ),
                                 actions: <Widget>[
                                   TextButton(
                                     onPressed: () =>
@@ -234,12 +240,7 @@ class Home extends StatelessWidget {
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, addAccount);
-        },
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: const AddAccountButton(),
     );
   }
 }

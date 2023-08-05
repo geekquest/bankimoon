@@ -20,7 +20,9 @@ class AccountCard extends StatelessWidget {
       child: ListTile(
         title: Text(
           accountName,
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
         ),
         subtitle: Text(
           '$accountNumber - $bankName',
@@ -38,7 +40,9 @@ class AccountCard extends StatelessWidget {
                 );
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text("Copied to clipboard"),
+                    content: Text(
+                      "Copied to clipboard",
+                    ),
                   ),
                 );
               },

@@ -25,8 +25,9 @@ const textStyle = TextStyle(
   color: Colors.white,
 );
 
-const titleStyles = TextStyle(
+TextStyle titleStyles = TextStyle(
   color: Colors.white,
+  fontSize: AppSize.ap17,
   fontWeight: FontWeight.bold,
 );
 
@@ -42,3 +43,17 @@ List<String> banks = [
   'ESCOM',
   'MASM',
 ];
+
+class Strings {
+  static String title = "Home";
+  static String noAcc = "No accounts saved";
+  static String yourAcc = "Your Accounts";
+}
+
+class AppSize {
+  static double ap10 = 10.0;
+  static double ap12 = 12.0;
+  static double ap15 = 15.0;
+  static double ap17 = 17.0;
+  static double ap20 = 20.0;
+}
