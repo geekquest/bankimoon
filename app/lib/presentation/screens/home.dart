@@ -41,6 +41,7 @@ class Home extends StatelessWidget {
                   child: Text(
                     Strings.noAcc,
                     style: const TextStyle(
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                     ),
