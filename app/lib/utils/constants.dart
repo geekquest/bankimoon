@@ -42,6 +42,8 @@ List<String> banks = [
   'First Capital Bank',
   'ESCOM',
   'MASM',
+  'DSTV',
+  'GoTV',
 ];
 
 class Strings {
