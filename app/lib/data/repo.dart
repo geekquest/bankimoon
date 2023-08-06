@@ -36,18 +36,18 @@ class Repository {
     return data;
   }
 
-  Future searchAccount(String query) async {
+  Future<List<Account>> searchAccount(String query) async {
     final data = await connection.searchAccount(query);
 
-    return data
-        .map(
-          (e) => Account(
-            id: e['id'],
-            bankName: e['bankName'],
-            accountName: e['accountName'],
-            accountNumber: e['accountNumber'],
-          ),
-        )
+    List<Account> accounts = data
+        .map((e) => Account(
+              id: e['id'],
+              bankName: e['bankName'],
+              accountName: e['accountName'],
+              accountNumber: e['accountNumber'],
+            ))
         .toList();
+
+    return accounts;
   }
 }

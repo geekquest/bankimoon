@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../data/cubit/accounts_cubit.dart';
 import '../../utils/constants.dart';
+import '../screens/account_search_delegate.dart';
 
 class AddAccountButton extends StatelessWidget {
   const AddAccountButton({
@@ -40,14 +42,22 @@ class SettingsButton extends StatelessWidget {
 }
 
 class SearchButton extends StatelessWidget {
+  final AccountsCubit accountsCubit;
+
   const SearchButton({
-    super.key,
-  });
+    Key? key,
+    required this.accountsCubit,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () {},
+      onPressed: () {
+        showSearch(
+          context: context,
+          delegate: AccountSearchDelegate(accountsCubit: accountsCubit),
+        );
+      },
       icon: const Icon(
         Icons.search,
         color: Colors.white,

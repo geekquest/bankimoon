@@ -11,13 +11,16 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AccountsCubit accountsCubit = BlocProvider.of<AccountsCubit>(context);
     final size = MediaQuery.of(context).size;
     BlocProvider.of<AccountsCubit>(context).useraccounts();
     return Scaffold(
       appBar: AppBar(
-        actions: const <Widget>[
-          SearchButton(),
-          SettingsButton(),
+        actions: <Widget>[
+          SearchButton(
+            accountsCubit: accountsCubit,
+          ),
+          // SettingsButton(),
         ],
         automaticallyImplyLeading: false,
         title: Text(
@@ -25,28 +28,6 @@ class Home extends StatelessWidget {
           style: titleStyles,
         ),
         centerTitle: false,
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(50.0),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              height: 45.0,
-              child: SearchBar(
-                leading: const Icon(Icons.search),
-                hintText: "Search",
-                onChanged: (value) {
-                  if (value.isNotEmpty) {
-                    BlocProvider.of<AccountsCubit>(context)
-                        .searchAccount(value.toString());
-                  } else {
-                    BlocProvider.of<AccountsCubit>(context).useraccounts();
-                  }
-                },
-              ),
-              //width: 300.0,
-            ),
-          ),
-        ),
       ),
       body: BlocBuilder<AccountsCubit, AccountsState>(
         builder: (context, state) {
@@ -177,7 +158,6 @@ class Home extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
                           "Account Search Results",
@@ -200,29 +180,8 @@ class Home extends StatelessWidget {
                               fontSize: 12,
                             ),
                           ),
-
-                        //placeholder for button
                       ],
                     ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const ScrollPhysics(),
-                    itemCount: state.accounts.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: AccountCard(
-                          accountName: state.accounts[index].accountName,
-                          accountNumber:
-                              state.accounts[index].accountNumber.toString(),
-                          bankName: state.accounts[index].bankName,
-                        ),
-                      );
-                    },
                   ),
                 ],
               );

@@ -5,13 +5,15 @@ import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
+import '../Models/accounts.dart';
+
 part 'accounts_state.dart';
 
 class AccountsCubit extends Cubit<AccountsState> {
   final Repository repository;
   AccountsCubit({required this.repository}) : super(AccountsInitial());
 
-//fetch user accounts
+  // Fetch user accounts
   void useraccounts() {
     emit(FetchingAccounts());
     repository.getAccounts().then((value) {
@@ -21,8 +23,9 @@ class AccountsCubit extends Cubit<AccountsState> {
     });
   }
 
-  // add account
-  void addAccount(institutionName, accountName, accountNumber) {
+  // Add account
+  void addAccount(
+      String institutionName, String accountName, String accountNumber) {
     emit(SubmittingAccount());
     repository
         .addAccount(institutionName, accountName, accountNumber)
@@ -36,32 +39,44 @@ class AccountsCubit extends Cubit<AccountsState> {
   }
 
   // Search account
-  void searchAccount(String query) {
-    repository.searchAccount(query).then((value) {
-      emit(AccountSearchResults(accounts: value));
-    });
-  }
+  // Inside AccountsCubit class
 
-  // delete account
-  void deleteAccount(int id) {
-    repository.deleteAccount(id);
+  Future<List<Account>> searchAccount(String query) async {
+    emit(FetchingAccounts()); // Show loading state if needed
 
-    repository.getAccounts().then((value) {
-      emit(
-        AccountsFetched(accounts: value),
+    final results = await repository.searchAccount(query);
+
+    final List<Account> accounts = results.map<Account>((e) {
+      return Account(
+        id: e.id,
+        bankName: e.bankName,
+        accountName: e.accountName,
+        accountNumber: e.accountNumber,
       );
+    }).toList();
+
+    emit(AccountSearchResults(accounts: accounts));
+
+    return accounts;
+  }
+
+  // Delete account
+  void deleteAccount(int id) {
+    repository.deleteAccount(id).then((_) {
+      // After deleting, fetch the updated accounts list and emit the state
+      useraccounts();
     });
   }
 
-  // nuke all accounts from db
+  // Nuke all accounts from db
   void nukeAccounts() {
     emit(DeletingAccounts());
-    repository.deleteAccounts().then((value) => {
-          emit(
-            AccountsDeleted(
-              msg: value['msg'],
-            ),
-          )
-        });
+    repository.deleteAccounts().then((value) {
+      emit(
+        AccountsDeleted(
+          msg: value['msg'],
+        ),
+      );
+    });
   }
 }

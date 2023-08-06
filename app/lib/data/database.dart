@@ -96,16 +96,13 @@ class DbManager {
     };
   }
 
-  Future searchAccount(String searchQuery) async {
+  Future<List<Map<String, dynamic>>> searchAccount(String searchQuery) async {
     await openDb();
 
     String sql =
         "SELECT * FROM accounts WHERE accountName LIKE ? OR accountNumber LIKE ?";
 
-    List<dynamic> params = [
-      '%${searchQuery.trim()}%',
-      '%${searchQuery.trim()}%'
-    ];
+    List<dynamic> params = ['%$searchQuery%', '%$searchQuery%'];
 
     final results = await _database.rawQuery(sql, params);
 
