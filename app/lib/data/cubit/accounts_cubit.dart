@@ -14,13 +14,14 @@ class AccountsCubit extends Cubit<AccountsState> {
   AccountsCubit({required this.repository}) : super(AccountsInitial());
 
   // Fetch user accounts
-  void useraccounts() {
+  Future<void> useraccounts() async {
     emit(FetchingAccounts());
-    repository.getAccounts().then((value) {
-      emit(
-        AccountsFetched(accounts: value),
-      );
-    });
+    try {
+      final List<Account> accounts = await repository.getAccounts();
+      emit(AccountsFetched(accounts: accounts));
+    } catch (e) {
+      emit(AccountsError(message: 'Error fetching accounts: $e'));
+    }
   }
 
   // Add account

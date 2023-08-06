@@ -15,12 +15,13 @@ class Home extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     BlocProvider.of<AccountsCubit>(context).useraccounts();
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         actions: <Widget>[
+          // const ThemeButton(),
           SearchButton(
             accountsCubit: accountsCubit,
           ),
-          // SettingsButton(),
         ],
         automaticallyImplyLeading: false,
         title: Text(
@@ -55,7 +56,8 @@ class Home extends StatelessWidget {
                       Strings.yourAcc,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 13,
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -84,6 +86,8 @@ class Home extends StatelessWidget {
                             return showDialog<bool>(
                               context: context,
                               builder: (BuildContext context) => AlertDialog(
+                                backgroundColor:
+                                    const Color.fromARGB(255, 18, 18, 18),
                                 title: const Wrap(
                                   crossAxisAlignment: WrapCrossAlignment.center,
                                   spacing: 10,
@@ -102,17 +106,30 @@ class Home extends StatelessWidget {
                                 ),
                                 content: Text(
                                   'Are you sure you want to delete ${state.accounts[index].accountName} account?',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                  ),
                                 ),
                                 actions: <Widget>[
                                   TextButton(
                                     onPressed: () =>
                                         Navigator.pop(context, false),
-                                    child: const Text('Cancel'),
+                                    child: const Text(
+                                      'Cancel',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   ),
                                   TextButton(
                                     onPressed: () =>
                                         Navigator.pop(context, true),
-                                    child: const Text('OK'),
+                                    child: const Text(
+                                      'OK',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -132,56 +149,6 @@ class Home extends StatelessWidget {
                         ),
                       );
                     },
-                  ),
-                ],
-              );
-            }
-          } else if (state is AccountSearchResults) {
-            if (state.accounts.isEmpty) {
-              return SizedBox(
-                height: size.height,
-                width: size.width,
-                child: const Center(
-                  child: Text(
-                    'Account not found',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              );
-            } else {
-              return ListView(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "Account Search Results",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                        if (state.accounts.length == 1)
-                          Text(
-                            "${state.accounts.length} result",
-                            style: const TextStyle(
-                              fontSize: 12,
-                            ),
-                          )
-                        else
-                          Text(
-                            "${state.accounts.length} results",
-                            style: const TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                      ],
-                    ),
                   ),
                 ],
               );

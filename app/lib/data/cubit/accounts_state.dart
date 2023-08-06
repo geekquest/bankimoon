@@ -50,3 +50,11 @@ class AccountSearchResults extends AccountsState {
 
   AccountSearchResults({required this.accounts});
 }
+
+class AccountsError extends AccountsState {
+  final String message;
+
+  AccountsError({required this.message});
+
+  List<Object> get props => [message];
+}

@@ -47,7 +47,7 @@ List<String> banks = [
 class Strings {
   static String title = "Home";
   static String noAcc = "No accounts saved";
-  static String yourAcc = "Your Accounts";
+  static String yourAcc = "Accounts";
 }
 
 class AppSize {

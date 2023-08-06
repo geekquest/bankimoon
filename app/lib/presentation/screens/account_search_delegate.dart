@@ -1,4 +1,5 @@
 import 'package:bankimoon/data/cubit/accounts_cubit.dart';
+import 'package:bankimoon/presentation/widgets/account_card.dart';
 import 'package:flutter/material.dart';
 import '../../data/Models/accounts.dart';
 
@@ -11,7 +12,7 @@ class AccountSearchDelegate extends SearchDelegate<String> {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Icons.clear),
+        icon: const Icon(Icons.clear),
         onPressed: () {
           query = '';
           showSuggestions(context);
@@ -35,35 +36,53 @@ class AccountSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return FutureBuilder<List<Account>>(
-      future: accountsCubit.searchAccount(query),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          // Show loading indicator while waiting for search results
-          return Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          // Show error message if there was an error during search
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else {
-          // Display the search results when available
-          final List<Account> searchResults = snapshot.data ?? [];
-          if (searchResults.isEmpty) {
-            return Center(child: Text('Account not found'));
-          } else {
-            return ListView.builder(
-              itemCount: searchResults.length,
-              itemBuilder: (context, index) => ListTile(
-                title: Text(searchResults[index].accountName),
-                subtitle: Text(searchResults[index].bankName),
-                onTap: () {
-                  // Optionally, you can close the search delegate and use the selected account.
-                  // close(context, searchResults[index].accountName);
-                },
+    final Future<List<Account>> searchResultsFuture =
+        accountsCubit.searchAccount(query);
+
+    return Container(
+      color: Colors.black,
+      child: FutureBuilder<List<Account>>(
+        future: searchResultsFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: Colors.deepPurple[800],
               ),
             );
+          } else if (snapshot.hasError) {
+            // Show error message if there was an error during search
+            //TODO: Needs an illustration
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            // Display the search results when available
+            final List<Account> searchResults = snapshot.data ?? [];
+            if (searchResults.isEmpty) {
+              return const Center(
+                child: Text(
+                  'Account not found',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                  ),
+                ),
+              );
+            } else {
+              return ListView.builder(
+                itemCount: searchResults.length,
+                itemBuilder: (context, index) {
+                  final account = searchResults[index];
+                  return AccountCard(
+                    accountName: account.accountName,
+                    accountNumber: account.accountNumber.toString(),
+                    bankName: account.bankName,
+                  );
+                },
+              );
+            }
           }
-        }
-      },
+        },
+      ),
     );
   }
 
@@ -74,7 +93,7 @@ class AccountSearchDelegate extends SearchDelegate<String> {
 
   @override
   void showResults(BuildContext context) {
-    accountsCubit.searchAccount(query);
+    // We already called searchAccount in buildResults, no need to call it again.
     super.showResults(context);
   }
 }

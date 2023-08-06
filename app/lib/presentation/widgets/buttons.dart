@@ -24,8 +24,8 @@ class AddAccountButton extends StatelessWidget {
   }
 }
 
-class SettingsButton extends StatelessWidget {
-  const SettingsButton({
+class ThemeButton extends StatelessWidget {
+  const ThemeButton({
     super.key,
   });
 
@@ -34,7 +34,7 @@ class SettingsButton extends StatelessWidget {
     return IconButton(
       onPressed: () {},
       icon: const Icon(
-        Icons.settings,
+        Icons.sunny,
         color: Colors.white,
       ),
     );
