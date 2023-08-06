@@ -36,6 +36,10 @@ class AccountCard extends StatelessWidget {
           ),
           trailing: PopupMenuButton<String>(
             color: Colors.white,
+            shadowColor: Colors.deepPurple[800],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
             itemBuilder: (context) => <PopupMenuEntry<String>>[
               const PopupMenuItem<String>(
                 value: 'copy',
