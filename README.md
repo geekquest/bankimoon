@@ -1,59 +1,37 @@
 # bankimoon
 
-A simple web app for storing account numbers you use frequently locally on your phone.
-Uses LocalStorage for storing accounts, does not push anything to any online service.
+Bankimoon is an app for storing Account Numbers you use frequently locally on your phone.
+It uses your device's Local Storage for storing accounts, and (currently) does not push information to any online service.
 
-## Getting the application
+It is tailored to Malawians who want to keep accounts so that they stop saving things like Bank Accounts as contacts and to make sharing of account numbers for online transactions easier. 
 
-Stack
+Bankimoon is built with:
 
-- Vue
-- Vite
+- Flutter
+- SQLite
 
-### If you don't have the geekquest gh organization permission
+## Design
 
-Fork the repository from https://github.com/geekquest/bankimoon into your gh account the clone the repo
+The use case for the App is simple enough as just storing the Account numbers, with a few other functions.
+Please refer to the diagram below for the initial use cases:
 
-### If you have the geekquest gh organization permission
+![[]](./docs/use-cases.png)
 
-Clone the application directly from git@github.com:geekquest/bankimoon.git
 
-> Guide terminal command
+### UI / UX Design
 
-    git clone git@github.com:geekquest/bankimoon.git
+The UI/UX of the App is a work in progress - there is an initial for the app in the docs directory, [UI Design PDF](./docs/Bankimoon-UI-Design_v0.1.pdf)
 
-Make sure you are working from the 'ui' directory within your terminal
 
-> Guide terminal command
+## Getting the App
 
-    cd bankimoon/ui
+The Bankimoon mobile app written in flutter uses sqlite to store institution account numbers, the sources are in the `app` directory.  We will publish APKs on GitHub Releases or the Play Store in due time, but for now you may have to build it yourself.
 
-## Preparing the application
-
-Assuming you are in the 'ui' directory, that's were the package.json file resides
-
-Run:
-
-    npm install
-
-## Run your application
-
-Run the app with the following command and your app should be accessible in the browser from the URL presented in the Terminal (defaults to http://127.0.0.1:5173/)
-
-    npm run dev
-
-## Contributing to development
-
-# Bankimoon Mobile App
-
-A bankimoon mobile app written in flutter with sqlite to store institution account numbers.
-Find it [here](https://github.com/geekquest/bankimoon)
-
-## Requirements
+### Requirements
 
 1. [Flutter](https://flutter.dev/)
 
-# Project setup
+### Project setup
 
 ```
 git clone https://github.com/geekquest/bankimoon
@@ -74,3 +52,8 @@ flutter run
 | :warning: WARNING                                                                                         |
 | :-------------------------------------------------------------------------------------------------------- |
 | some Lower versions of flutter might cause problems with packages used, it is advised to user flutter 3.7 |
+
+
+## Contributing
+
+Contributions are very welcome, please check out the Issues and Open Pull-Requests.
