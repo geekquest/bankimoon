@@ -50,3 +50,9 @@ class AccountSearchResults extends AccountsState {
 
   AccountSearchResults({required this.accounts});
 }
+
+class AccountFetchError extends AccountsState {
+  final String message;
+
+  AccountFetchError({ required this.message });
+}

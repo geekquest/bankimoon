@@ -18,6 +18,20 @@ class AccountsCubit extends Cubit<AccountsState> {
       emit(
         AccountsFetched(accounts: value),
       );
+    }).catchError((err) {
+      emit(AccountFetchError(message: 'Got error $err'));
+    });
+  }
+
+  // Fetch favourited accounts from the stoe
+  void favouritedAccounts() {
+    emit(FetchingAccounts());
+    repository.getFavourites().then((value) {
+      emit(
+        AccountsFetched(accounts: value),
+      );
+    }).catchError((err) {
+      emit(AccountFetchError(message: 'Got error $err'));
     });
   }
 
@@ -39,6 +53,24 @@ class AccountsCubit extends Cubit<AccountsState> {
   void searchAccount(String query) {
     repository.searchAccount(query).then((value) {
       emit(AccountSearchResults(accounts: value));
+    }).catchError((err) {
+      emit(AccountFetchError(message: 'Got error $err'));
+    });
+  }
+
+  void searchFavouriteAccounts(String query) {
+    repository.searchFavouriteAccounts(query).then((value) {
+      emit(AccountSearchResults(accounts: value));
+    }).catchError((err) {
+      emit(AccountFetchError(message: 'Got error $err'));
+    });
+  }
+
+  void markAsFavourite(int accountId) {
+    repository.markAsFavourite(accountId);
+    
+    repository.getAccounts().then((value) {
+      emit(AccountsFetched(accounts: value));
     });
   }
 
@@ -47,9 +79,7 @@ class AccountsCubit extends Cubit<AccountsState> {
     repository.deleteAccount(id);
 
     repository.getAccounts().then((value) {
-      emit(
-        AccountsFetched(accounts: value),
-      );
+      emit(AccountsFetched(accounts: value));
     });
   }
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 const splash = '/';
 const home = '/home';
 const addAccount = '/add-account';
+const favouritePage = '/favs';
 
 // colors
 const btnColor = Color.fromARGB(255, 69, 39, 160);

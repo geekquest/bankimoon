@@ -9,14 +9,14 @@ class Repository {
   Future getAccounts() async {
     final data = await connection.getAccountList();
     return data
-        .map(
-          (e) => Account(
-            id: e['id'],
-            bankName: e['bankName'],
-            accountName: e['accountName'],
-            accountNumber: e['accountNumber'],
-          ),
-        )
+        .map(Account.fromJson)
+        .toList();
+  }
+  
+  Future getFavourites() async {
+    final data = await connection.getFavourites();
+    return data
+        .map(Account.fromJson)
         .toList();
   }
 
@@ -40,14 +40,19 @@ class Repository {
     final data = await connection.searchAccount(query);
 
     return data
-        .map(
-          (e) => Account(
-            id: e['id'],
-            bankName: e['bankName'],
-            accountName: e['accountName'],
-            accountNumber: e['accountNumber'],
-          ),
-        )
+        .map(Account.fromJson)
         .toList();
+  }
+
+  Future searchFavouriteAccounts(String query) async {
+    final data = await connection.searchFavouriteAccounts(query);
+
+    return data
+        .map(Account.fromJson)
+        .toList();
+  }
+
+  Future markAsFavourite(int accountId) async {
+    return await connection.markAsFavourite(accountId);
   }
 }
