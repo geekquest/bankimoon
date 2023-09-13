@@ -2,8 +2,7 @@ name: Flutter CI
 
 on:
   push:
-    branches:
-      - main
+    tags: [ "v*" ]
 
 jobs:
   build:
@@ -31,3 +30,12 @@ jobs:
         with:
           name: release-apk
           path: ./app/build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+      - name: Internal Release
+        uses: ncipollo/release-action@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          makeLatest: true
+          allowUpdates: true
+          removeArtifacts: true
+          generateReleaseNotes: false
+          artifacts: "./app/build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk"
