@@ -3,6 +3,8 @@ import 'package:bankimoon/presentation/widgets/account_card.dart';
 import 'package:bankimoon/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+// ignore: unused_import
+import 'package:bankimoon/presentation/screens/add_account.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -261,6 +263,8 @@ class Home extends StatelessWidget {
       bottomNavigationBar: BottomAppBar(
         color: Color.fromARGB(255, 15, 91, 254),
         shape: const CircularNotchedRectangle(),
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
@@ -268,14 +272,19 @@ class Home extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 IconButton(
+                  // ignore: prefer_const_constructors
                   icon: Icon(
                     Icons.home,
                     color: Colors.white, // Set the icon color to white
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, Home as String);
+                  },
                 ),
+                // ignore: prefer_const_constructors
                 Text(
                   'Home',
+                  // ignore: prefer_const_constructors
                   style: TextStyle(color: Colors.white),
                 ),
               ],
@@ -284,12 +293,16 @@ class Home extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 IconButton(
+                  // ignore: prefer_const_constructors
                   icon: Icon(
                     Icons.favorite,
                     color: Colors.white, // Set the icon color to white
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, favouritePage);
+                  },
                 ),
+                // ignore: prefer_const_constructors
                 Text(
                   'Favorite',
                   style: TextStyle(color: Colors.white),
@@ -304,7 +317,9 @@ class Home extends StatelessWidget {
                     Icons.add,
                     color: Colors.white, // Set the icon color to white
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, addAccount);
+                  },
                 ),
                 Text(
                   'Add account',
@@ -330,8 +345,6 @@ class Home extends StatelessWidget {
             ),
           ],
         ),
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       ),
     );
   }
