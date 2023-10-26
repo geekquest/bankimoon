@@ -3,8 +3,6 @@ import 'package:bankimoon/presentation/widgets/account_card.dart';
 import 'package:bankimoon/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// ignore: unused_import
-import 'package:bankimoon/presentation/screens/add_account.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -253,12 +251,6 @@ class Home extends StatelessWidget {
             );
           }
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, addAccount);
-        },
-        child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomAppBar(
         color: Color.fromARGB(255, 15, 91, 254),
