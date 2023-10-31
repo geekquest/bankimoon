@@ -76,13 +76,10 @@ class Home extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, favouritePage);
-                    },
-                    child: const Text(
-                      "Favourites"
-                    )
-                  ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, favouritePage);
+                      },
+                      child: const Text("Favourites")),
                   const SizedBox(
                     height: 5,
                   ),
@@ -238,10 +235,9 @@ class Home extends StatelessWidget {
               height: size.height,
               width: size.width,
               child: Center(
-                child: Text(
-                  state.message,
-                )
-              ),
+                  child: Text(
+                state.message,
+              )),
             );
           } else {
             return SizedBox(
@@ -261,6 +257,81 @@ class Home extends StatelessWidget {
           Navigator.pushNamed(context, addAccount);
         },
         child: const Icon(Icons.add),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Color.fromARGB(255, 15, 91, 254),
+        shape: const CircularNotchedRectangle(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(
+                    Icons.home,
+                    color: Colors.white, // Set the icon color to white
+                  ),
+                  onPressed: () {},
+                ),
+                Text(
+                  'Home',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(
+                    Icons.favorite,
+                    color: Colors.white, // Set the icon color to white
+                  ),
+                  onPressed: () {},
+                ),
+                Text(
+                  'Favorite',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(
+                    Icons.add,
+                    color: Colors.white, // Set the icon color to white
+                  ),
+                  onPressed: () {},
+                ),
+                Text(
+                  'Add account',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(
+                    Icons.account_circle,
+                    color: Colors.white, // Set the icon color to white
+                  ),
+                  onPressed: () {},
+                ),
+                Text(
+                  'My Account',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
+          ],
+        ),
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       ),
     );
   }
