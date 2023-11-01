@@ -75,14 +75,6 @@ class Home extends StatelessWidget {
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, favouritePage);
-                      },
-                      child: const Text("Favourites")),
-                  const SizedBox(
-                    height: 5,
-                  ),
                   ListView.builder(
                     padding: const EdgeInsets.only(bottom: 100),
                     shrinkWrap: true,
@@ -252,15 +244,11 @@ class Home extends StatelessWidget {
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, addAccount);
-        },
-        child: const Icon(Icons.add),
-      ),
       bottomNavigationBar: BottomAppBar(
         color: Color.fromARGB(255, 15, 91, 254),
         shape: const CircularNotchedRectangle(),
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
@@ -268,14 +256,19 @@ class Home extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 IconButton(
+                  // ignore: prefer_const_constructors
                   icon: Icon(
                     Icons.home,
                     color: Colors.white, // Set the icon color to white
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, Home as String);
+                  },
                 ),
+                // ignore: prefer_const_constructors
                 Text(
                   'Home',
+                  // ignore: prefer_const_constructors
                   style: TextStyle(color: Colors.white),
                 ),
               ],
@@ -284,14 +277,18 @@ class Home extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 IconButton(
+                  // ignore: prefer_const_constructors
                   icon: Icon(
                     Icons.favorite,
                     color: Colors.white, // Set the icon color to white
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, favouritePage);
+                  },
                 ),
+                // ignore: prefer_const_constructors
                 Text(
-                  'Favorite',
+                  'Favorites',
                   style: TextStyle(color: Colors.white),
                 ),
               ],
@@ -304,10 +301,12 @@ class Home extends StatelessWidget {
                     Icons.add,
                     color: Colors.white, // Set the icon color to white
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, addAccount);
+                  },
                 ),
                 Text(
-                  'Add account',
+                  'Add Account',
                   style: TextStyle(color: Colors.white),
                 ),
               ],
@@ -323,15 +322,13 @@ class Home extends StatelessWidget {
                   onPressed: () {},
                 ),
                 Text(
-                  'My Account',
+                  'My Accounts',
                   style: TextStyle(color: Colors.white),
                 ),
               ],
             ),
           ],
         ),
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       ),
     );
   }
