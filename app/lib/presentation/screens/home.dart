@@ -75,14 +75,6 @@ class Home extends StatelessWidget {
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, favouritePage);
-                      },
-                      child: const Text("Favourites")),
-                  const SizedBox(
-                    height: 5,
-                  ),
                   ListView.builder(
                     padding: const EdgeInsets.only(bottom: 100),
                     shrinkWrap: true,
