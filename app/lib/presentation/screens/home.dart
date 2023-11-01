@@ -296,7 +296,7 @@ class Home extends StatelessWidget {
                 ),
                 // ignore: prefer_const_constructors
                 Text(
-                  'Favorite',
+                  'Favorites',
                   style: TextStyle(color: Colors.white),
                 ),
               ],
@@ -314,7 +314,7 @@ class Home extends StatelessWidget {
                   },
                 ),
                 Text(
-                  'Add account',
+                  'Add Account',
                   style: TextStyle(color: Colors.white),
                 ),
               ],
@@ -330,7 +330,7 @@ class Home extends StatelessWidget {
                   onPressed: () {},
                 ),
                 Text(
-                  'My Account',
+                  'My Accounts',
                   style: TextStyle(color: Colors.white),
                 ),
               ],
