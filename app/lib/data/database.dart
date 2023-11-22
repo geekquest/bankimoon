@@ -12,7 +12,6 @@ dynamic encrypter(String password) {
   return encrypted;
 }
 
-
 /// Update Company table V1 to V2
 void _addIsFavouriteToAccountsTableV2(Batch batch) {
   batch.execute('ALTER TABLE accounts ADD isFavourite boolean default FALSE;');
@@ -24,23 +23,23 @@ class DbManager {
 
   Future openDb() async {
     _database = await openDatabase(
-        join(await getDatabasesPath(), "bankimoon.db"),
-        version: 2, 
-        onCreate: (Database db, int version) async {
-          await db.execute(
-            "CREATE TABLE IF NOT EXISTS accounts(id INTEGER PRIMARY KEY autoincrement, bankName TEXT, accountName TEXT, accountNumber INTEGER)",
-          );
-          await db.execute(
-            "CREATE TABLE IF NOT EXISTS password(id INTEGER PRIMARY KEY autoincrement, password TEXT)",
-          );
-        },
-        onUpgrade: (db, oldVersion, newVersion) async {
-          var batch = db.batch();
-          if (oldVersion == 1) {
-            _addIsFavouriteToAccountsTableV2(batch);
-          }
-          await batch.commit();
-        },
+      join(await getDatabasesPath(), "bankimoon.db"),
+      version: 3,
+      onCreate: (Database db, int version) async {
+        await db.execute(
+          "CREATE TABLE IF NOT EXISTS accounts(id INTEGER PRIMARY KEY autoincrement, bankName TEXT, accountName TEXT, accountNumber INTEGER, isFavourite TEXT)",
+        );
+        await db.execute(
+          "CREATE TABLE IF NOT EXISTS password(id INTEGER PRIMARY KEY autoincrement, password TEXT)",
+        );
+      },
+      onUpgrade: (db, oldVersion, newVersion) async {
+        var batch = db.batch();
+        if (oldVersion == 1) {
+          _addIsFavouriteToAccountsTableV2(batch);
+        }
+        await batch.commit();
+      },
     );
     return _database;
   }
@@ -158,7 +157,7 @@ class DbManager {
 
     String sql = "UPDATE accounts SET isFavourite = 1 WHERE id = ?";
 
-    List<dynamic> params = [ accountId ];
+    List<dynamic> params = [accountId];
 
     return await _database.rawQuery(sql, params);
   }

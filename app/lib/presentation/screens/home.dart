@@ -1,8 +1,11 @@
 import 'package:bankimoon/data/cubit/accounts_cubit.dart';
 import 'package:bankimoon/presentation/widgets/account_card.dart';
+import 'package:bankimoon/presentation/widgets/card.dart';
 import 'package:bankimoon/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../widgets/nav_bar.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -133,7 +136,7 @@ class Home extends StatelessWidget {
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: AccountCard(
+                          child: AccountCard2(
                             accountId: state.accounts[index].id,
                             accountName: state.accounts[index].accountName,
                             accountNumber:
@@ -244,92 +247,7 @@ class Home extends StatelessWidget {
           }
         },
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: Color.fromARGB(255, 15, 91, 254),
-        shape: const CircularNotchedRectangle(),
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  // ignore: prefer_const_constructors
-                  icon: Icon(
-                    Icons.home,
-                    color: Colors.white, // Set the icon color to white
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, Home as String);
-                  },
-                ),
-                // ignore: prefer_const_constructors
-                Text(
-                  'Home',
-                  // ignore: prefer_const_constructors
-                  style: TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  // ignore: prefer_const_constructors
-                  icon: Icon(
-                    Icons.favorite,
-                    color: Colors.white, // Set the icon color to white
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, favouritePage);
-                  },
-                ),
-                // ignore: prefer_const_constructors
-                Text(
-                  'Favorites',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    Icons.add,
-                    color: Colors.white, // Set the icon color to white
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, addAccount);
-                  },
-                ),
-                Text(
-                  'Add Account',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    Icons.account_circle,
-                    color: Colors.white, // Set the icon color to white
-                  ),
-                  onPressed: () {},
-                ),
-                Text(
-                  'My Accounts',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }
