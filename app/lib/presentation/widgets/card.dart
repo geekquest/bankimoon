@@ -5,8 +5,8 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../data/cubit/accounts_cubit.dart';
 
-class AccountCard2 extends StatelessWidget {
-  const AccountCard2({
+class AccountCard extends StatelessWidget {
+  const AccountCard({
     super.key,
     required this.accountId,
     required this.accountName,

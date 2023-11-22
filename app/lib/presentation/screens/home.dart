@@ -1,5 +1,4 @@
 import 'package:bankimoon/data/cubit/accounts_cubit.dart';
-import 'package:bankimoon/presentation/widgets/account_card.dart';
 import 'package:bankimoon/presentation/widgets/card.dart';
 import 'package:bankimoon/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -136,7 +135,7 @@ class Home extends StatelessWidget {
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: AccountCard2(
+                          child: AccountCard(
                             accountId: state.accounts[index].id,
                             accountName: state.accounts[index].accountName,
                             accountNumber:
