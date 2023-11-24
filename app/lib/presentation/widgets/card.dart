@@ -79,7 +79,7 @@ class AccountCard extends StatelessWidget {
                   right: 0,
                   child: Padding(
                     padding: const EdgeInsets.only(
-                      top: 10.0,
+                      top: 20.0,
                       right: 15.0,
                     ),
                     child: SizedBox(
