@@ -31,13 +31,13 @@ class AccountCard extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(15))),
             color: Colors.white,
             child: SizedBox(
-              height: 150,
+              height: 115,
               width: MediaQuery.of(context).size.width,
               child: Stack(children: [
                 Padding(
                   padding: const EdgeInsets.only(
                     left: 20,
-                    top: 20,
+                    top: 10,
                   ),
                   child: SizedBox(
                     child: Column(
@@ -51,7 +51,7 @@ class AccountCard extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                          height: 8,
+                          height: 4,
                         ),
                         Text(
                           accountNumber,
@@ -61,7 +61,7 @@ class AccountCard extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                          height: 8,
+                          height: 4,
                         ),
                         Text(
                           bankName,
@@ -79,8 +79,8 @@ class AccountCard extends StatelessWidget {
                   right: 0,
                   child: Padding(
                     padding: const EdgeInsets.only(
-                      top: 20.0,
-                      right: 20.0,
+                      top: 10.0,
+                      right: 15.0,
                     ),
                     child: SizedBox(
                       child: Row(
