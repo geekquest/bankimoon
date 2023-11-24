@@ -1,5 +1,5 @@
 import 'package:bankimoon/data/cubit/accounts_cubit.dart';
-import 'package:bankimoon/presentation/widgets/account_card.dart';
+import 'package:bankimoon/presentation/widgets/card.dart';
 import 'package:bankimoon/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,13 +19,13 @@ class Favourite extends StatelessWidget {
         ),
         centerTitle: true,
         leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-        )),
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            )),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50.0),
           child: Padding(
@@ -40,7 +40,8 @@ class Favourite extends StatelessWidget {
                     BlocProvider.of<AccountsCubit>(context)
                         .searchFavouriteAccounts(value.toString());
                   } else {
-                    BlocProvider.of<AccountsCubit>(context).favouritedAccounts();
+                    BlocProvider.of<AccountsCubit>(context)
+                        .favouritedAccounts();
                   }
                 },
               ),
@@ -234,10 +235,9 @@ class Favourite extends StatelessWidget {
               height: size.height,
               width: size.width,
               child: Center(
-                child: Text(
-                  state.message,
-                )
-              ),
+                  child: Text(
+                state.message,
+              )),
             );
           } else {
             return SizedBox(
