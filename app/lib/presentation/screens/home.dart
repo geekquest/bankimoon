@@ -22,7 +22,7 @@ class Home extends StatelessWidget {
         centerTitle: true,
         leading: Icon(
           Icons.ac_unit,
-          color: Colors.deepPurple[800],
+          color: const Color.fromARGB(255, 15, 91, 254),
         ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50.0),
@@ -239,7 +239,7 @@ class Home extends StatelessWidget {
               width: size.width,
               child: Center(
                 child: CircularProgressIndicator(
-                  color: Colors.deepPurple[800],
+                  color: const Color.fromARGB(255, 15, 91, 254),
                 ),
               ),
             );

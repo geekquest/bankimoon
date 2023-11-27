@@ -11,7 +11,7 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      color: Color.fromARGB(255, 15, 91, 254),
+      color: const Color.fromARGB(255, 15, 91, 254),
       shape: const CircularNotchedRectangle(),
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),

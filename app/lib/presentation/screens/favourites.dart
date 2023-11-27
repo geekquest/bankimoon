@@ -245,7 +245,7 @@ class Favourite extends StatelessWidget {
               width: size.width,
               child: Center(
                 child: CircularProgressIndicator(
-                  color: Colors.deepPurple[800],
+                  color: const Color.fromARGB(255, 15, 91, 254),
                 ),
               ),
             );
