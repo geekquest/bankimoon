@@ -100,7 +100,7 @@ class AccountCard extends StatelessWidget {
                             child: Icon(Icons.favorite,
                                 color: isFavourite
                                     ? Colors.red[400]
-                                    : Colors.deepPurple),
+                                    : Colors.grey),
                           ),
                           const InkWell(
                             //Todo: Add a dropdown menu

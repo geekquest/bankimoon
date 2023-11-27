@@ -11,7 +11,7 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      color: Color.fromARGB(255, 15, 91, 254),
+      color: const Color.fromARGB(255, 15, 91, 254),
       shape: const CircularNotchedRectangle(),
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -53,7 +53,7 @@ class BottomNavBar extends StatelessWidget {
                 },
               ),
               // ignore: prefer_const_constructors
-              Text(
+              const Text(
                 'Favorites',
                 style: TextStyle(color: Colors.white),
               ),
@@ -63,7 +63,7 @@ class BottomNavBar extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.add,
                   color: Colors.white, // Set the icon color to white
                 ),
@@ -71,7 +71,7 @@ class BottomNavBar extends StatelessWidget {
                   Navigator.pushNamed(context, addAccount);
                 },
               ),
-              Text(
+              const Text(
                 'Add Account',
                 style: TextStyle(color: Colors.white),
               ),
@@ -81,13 +81,13 @@ class BottomNavBar extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.account_circle,
                   color: Colors.white, // Set the icon color to white
                 ),
                 onPressed: () {},
               ),
-              Text(
+              const Text(
                 'My Accounts',
                 style: TextStyle(color: Colors.white),
               ),
