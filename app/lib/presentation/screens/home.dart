@@ -20,9 +20,9 @@ class Home extends StatelessWidget {
           style: titleStyles,
         ),
         centerTitle: true,
-        leading: Icon(
+        leading: const Icon(
           Icons.ac_unit,
-          color: const Color.fromARGB(255, 15, 91, 254),
+          color: Color.fromARGB(255, 15, 91, 254),
         ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50.0),
@@ -237,9 +237,9 @@ class Home extends StatelessWidget {
             return SizedBox(
               height: size.height,
               width: size.width,
-              child: Center(
+              child: const Center(
                 child: CircularProgressIndicator(
-                  color: const Color.fromARGB(255, 15, 91, 254),
+                  color: Color.fromARGB(255, 15, 91, 254),
                 ),
               ),
             );

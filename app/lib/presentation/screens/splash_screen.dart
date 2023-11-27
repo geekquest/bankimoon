@@ -38,11 +38,11 @@ class _SplashscreenState extends State<Splashscreen> {
             ),
             // ignore: prefer_const_constructors
             Center(
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     "Bankimoon",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -50,7 +50,7 @@ class _SplashscreenState extends State<Splashscreen> {
                       color: Colors.white,
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 10,
                   ),
                   SpinKitWave(

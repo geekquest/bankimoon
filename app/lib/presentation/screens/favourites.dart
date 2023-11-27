@@ -243,9 +243,9 @@ class Favourite extends StatelessWidget {
             return SizedBox(
               height: size.height,
               width: size.width,
-              child: Center(
+              child: const Center(
                 child: CircularProgressIndicator(
-                  color: const Color.fromARGB(255, 15, 91, 254),
+                  color: Color.fromARGB(255, 15, 91, 254),
                 ),
               ),
             );

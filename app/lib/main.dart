@@ -14,8 +14,8 @@ Future<void> main() async {
         theme: ThemeData(
           useMaterial3: true,
           fontFamily: GoogleFonts.lato().fontFamily,
-          appBarTheme: AppBarTheme(
-            backgroundColor: const Color.fromARGB(255, 15, 91, 254),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Color.fromARGB(255, 15, 91, 254),
           ),
         ),
       ),
