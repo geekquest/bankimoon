@@ -4,14 +4,14 @@ part 'accounts.g.dart';
 
 @collection
 class Account {
-  Id id = Isar.autoIncrement;
+  Id? id = Isar.autoIncrement;
   String bankName;
   String accountName;
   int accountNumber;
   bool isFavourite;
 
   Account({
-    required this.id,
+    this.id,
     required this.bankName,
     required this.accountName,
     required this.accountNumber,
