@@ -1,5 +1,10 @@
+import 'package:isar/isar.dart';
+
+part 'accounts.g.dart';
+
+@collection
 class Account {
-  int id;
+  Id id = Isar.autoIncrement;
   String bankName;
   String accountName;
   int accountNumber;
