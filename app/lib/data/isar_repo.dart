@@ -18,7 +18,7 @@ class IsarRepo {
 
   Future<List<Account>> getAccounts() async {
     final data = await isarInstance.accounts.where().findAll();
-    return data.map((e) => Account.fromJson(e.toJson())).toList();
+    return data;
   }
 
   Future addAccount(
@@ -50,7 +50,7 @@ class IsarRepo {
         .filter()
         .isFavouriteEqualTo(true)
         .findAll();
-    return data.map((e) => Account.fromJson(e.toJson())).toList();
+    return data;
   }
 
   markAsFavourite(int accountId) async {
@@ -75,7 +75,7 @@ class IsarRepo {
         .filter()
         .accountNameContains(query)
         .findAll();
-    return data.map((e) => Account.fromJson(e.toJson())).toList();
+    return data;
   }
 
   searchFavouriteAccounts(String query) async {
@@ -86,6 +86,6 @@ class IsarRepo {
         .and()
         .isFavouriteEqualTo(true)
         .findAll();
-    return data.map((e) => Account.fromJson(e.toJson())).toList();
+    return data;
   }
 }
