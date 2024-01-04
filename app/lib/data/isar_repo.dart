@@ -1,4 +1,5 @@
 import 'package:bankimoon/data/Models/accounts.dart';
+import 'package:bankimoon/data/database.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -87,5 +88,25 @@ class IsarRepo {
         .isFavouriteEqualTo(true)
         .findAll();
     return data;
+  }
+
+  // Migrate data from SQLite to Isar
+  Future migrateData() async {
+    final isarData = await isarInstance.accounts.where().findAll();
+    final sqliteData = await DbManager().getAccountList();
+    if (isarData.isEmpty && sqliteData.isNotEmpty) {
+      final db = DbManager();
+      final data = await db.getAccountList();
+      // account list from the accounts map list above
+      List<Account> accountList = [];
+
+      for (var account in data) {
+        accountList.add(Account.fromJson(account));
+      }
+
+      await isarInstance.writeTxn(() => isarInstance.accounts.putAll(accountList));
+
+      await db.deleteAccounts();
+    }
   }
 }

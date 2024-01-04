@@ -96,4 +96,9 @@ class AccountsCubit extends Cubit<AccountsState> {
           )
         });
   }
+
+  // Migrate data from the SQLite to Isar
+  Future migrateData() async {
+    await repository.migrateData();
+  }
 }
