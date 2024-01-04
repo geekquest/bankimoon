@@ -1,3 +1,4 @@
+import 'package:bankimoon/data/isar_repo.dart';
 import 'package:bankimoon/data/repo.dart';
 // ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
@@ -8,10 +9,11 @@ import 'package:meta/meta.dart';
 part 'accounts_state.dart';
 
 class AccountsCubit extends Cubit<AccountsState> {
-  final Repository repository;
-  AccountsCubit({required this.repository}) : super(AccountsInitial());
 
-//fetch user accounts
+  IsarRepo repository = IsarRepo.instance;
+  AccountsCubit() : super(AccountsInitial());
+
+  //fetch user accounts
   void useraccounts() {
     emit(FetchingAccounts());
     repository.getAccounts().then((value) {
@@ -43,7 +45,7 @@ class AccountsCubit extends Cubit<AccountsState> {
         .then((value) {
       emit(
         AccountSubmitted(
-          msg: value['msg'],
+          msg: 'Account saved',
         ),
       );
     });
@@ -66,17 +68,17 @@ class AccountsCubit extends Cubit<AccountsState> {
     });
   }
 
-  void markAsFavourite(int accountId) {
-    repository.markAsFavourite(accountId);
-    
+  Future<void> markAsFavourite(int accountId) async {
+    await repository.markAsFavourite(accountId);
+
     repository.getAccounts().then((value) {
       emit(AccountsFetched(accounts: value));
     });
   }
 
   // delete account
-  void deleteAccount(int id) {
-    repository.deleteAccount(id);
+  Future<void> deleteAccount(int id) async {
+    await repository.deleteAccount(id);
 
     repository.getAccounts().then((value) {
       emit(AccountsFetched(accounts: value));
@@ -89,7 +91,7 @@ class AccountsCubit extends Cubit<AccountsState> {
     repository.deleteAccounts().then((value) => {
           emit(
             AccountsDeleted(
-              msg: value['msg'],
+              msg: 'Accounts deleted',
             ),
           )
         });
