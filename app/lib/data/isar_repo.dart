@@ -74,7 +74,7 @@ class IsarRepo {
     final data = await isarInstance.accounts
         .where()
         .filter()
-        .accountNameContains(query)
+        .accountNameContains(query, caseSensitive: false)
         .findAll();
     return data;
   }
@@ -83,7 +83,7 @@ class IsarRepo {
     final data = await isarInstance.accounts
         .where()
         .filter()
-        .accountNameContains(query)
+        .accountNameContains(query, caseSensitive: false)
         .and()
         .isFavouriteEqualTo(true)
         .findAll();
