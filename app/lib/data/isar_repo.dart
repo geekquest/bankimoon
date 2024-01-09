@@ -15,8 +15,6 @@ class IsarRepo {
   late Isar isarInstance;
 
   init() async {
-    final dir = await getApplicationDocumentsDirectory();
-    isarInstance = await Isar.open([AccountSchema], directory: dir.path);
     try {
       final dir = await getApplicationDocumentsDirectory();
       isarInstance = await Isar.open([AccountSchema], directory: dir.path);
@@ -35,9 +33,8 @@ class IsarRepo {
     }
   }
 
-  Future addAccount(
+  Future<int> addAccount(
       String institutionName, String accountName, String accountNumber) async {
-    
     try {
       final data = await isarInstance.accounts.put(Account(
         bankName: institutionName,
@@ -127,7 +124,7 @@ class IsarRepo {
     }
   }
 
-  Future searchFavouriteAccounts(String query) async {
+  Future<List<Account>> searchFavouriteAccounts(String query) async {
     try {
       final data = await isarInstance.accounts
           .where()
