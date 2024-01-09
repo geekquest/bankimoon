@@ -224,7 +224,7 @@ class Home extends StatelessWidget {
                 ],
               );
             }
-          } else if (state is AccountFetchError) {
+          } else if (state is ErrorState) {
             return SizedBox(
               height: size.height,
               width: size.width,

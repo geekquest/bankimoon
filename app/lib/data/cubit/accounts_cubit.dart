@@ -17,7 +17,7 @@ class AccountsCubit extends Cubit<AccountsState> {
         AccountsFetched(accounts: value),
       );
     }).catchError((err) {
-      emit(AccountFetchError(message: 'Got error $err'));
+      emit(ErrorState(message: err.toString()));
     });
   }
 
@@ -29,7 +29,7 @@ class AccountsCubit extends Cubit<AccountsState> {
         AccountsFetched(accounts: value),
       );
     }).catchError((err) {
-      emit(AccountFetchError(message: 'Got error $err'));
+      emit(ErrorState(message: err.toString()));
     });
   }
 
@@ -44,6 +44,8 @@ class AccountsCubit extends Cubit<AccountsState> {
           msg: 'Account saved',
         ),
       );
+    }).catchError((error) {
+      emit(ErrorState(message: 'Got error $error'));
     });
   }
 
@@ -52,7 +54,7 @@ class AccountsCubit extends Cubit<AccountsState> {
     repository.searchAccount(query).then((value) {
       emit(AccountSearchResults(accounts: value));
     }).catchError((err) {
-      emit(AccountFetchError(message: 'Got error $err'));
+      emit(ErrorState(message: err.toString()));
     });
   }
 
@@ -60,7 +62,7 @@ class AccountsCubit extends Cubit<AccountsState> {
     repository.searchFavouriteAccounts(query).then((value) {
       emit(AccountSearchResults(accounts: value));
     }).catchError((err) {
-      emit(AccountFetchError(message: 'Got error $err'));
+      emit(ErrorState(message: err.toString()));
     });
   }
 
@@ -69,6 +71,8 @@ class AccountsCubit extends Cubit<AccountsState> {
 
     repository.getAccounts().then((value) {
       emit(AccountsFetched(accounts: value));
+    }).catchError((err) {
+      emit(ErrorState(message: err.toString()));
     });
   }
 
@@ -78,6 +82,8 @@ class AccountsCubit extends Cubit<AccountsState> {
 
     repository.getAccounts().then((value) {
       emit(AccountsFetched(accounts: value));
+    }).catchError((err) {
+      emit(ErrorState(message: err.toString()));
     });
   }
 
@@ -90,7 +96,9 @@ class AccountsCubit extends Cubit<AccountsState> {
               msg: 'Accounts deleted',
             ),
           )
-        });
+        }).catchError((err) {
+      emit(ErrorState(message: err.toString()));
+    });
   }
 
   // Migrate data from the SQLite to Isar

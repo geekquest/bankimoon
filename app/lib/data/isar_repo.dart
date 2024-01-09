@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bankimoon/data/Models/accounts.dart';
 import 'package:bankimoon/data/database.dart';
 import 'package:isar/isar.dart';
@@ -15,98 +17,153 @@ class IsarRepo {
   init() async {
     final dir = await getApplicationDocumentsDirectory();
     isarInstance = await Isar.open([AccountSchema], directory: dir.path);
+    try {
+      final dir = await getApplicationDocumentsDirectory();
+      isarInstance = await Isar.open([AccountSchema], directory: dir.path);
+    } catch (e) {
+      log('Error initializing Isar: $e');
+    }
   }
 
   Future<List<Account>> getAccounts() async {
-    final data = await isarInstance.accounts.where().findAll();
-    return data;
+    try {
+      final data = await isarInstance.accounts.where().findAll();
+      return data;
+    } catch (e) {
+      log('Error getting accounts: $e');
+      throw Exception('Error getting accounts');
+    }
   }
 
   Future addAccount(
       String institutionName, String accountName, String accountNumber) async {
-    return await isarInstance.writeTxn(() async {
-      var data = await isarInstance.accounts.put(Account(
+    
+    try {
+      final data = await isarInstance.accounts.put(Account(
         bankName: institutionName,
         accountName: accountName,
         accountNumber: int.parse(accountNumber),
         isFavourite: false,
       ));
       return data;
-    });
+    } catch (e) {
+      log('Error adding account: $e');
+      throw Exception('Error adding account');
+    }
   }
 
-  deleteAccount(int id) async {
-    await isarInstance
-        .writeTxn(() async => await isarInstance.accounts.delete(id));
+  Future deleteAccount(int id) async {
+    try {
+      await isarInstance
+          .writeTxn(() async => await isarInstance.accounts.delete(id));
+    } catch (e) {
+      log('Error deleting account: $e');
+      throw Exception('Error deleting account');
+    }
   }
 
-  deleteAccounts() async {
-    await isarInstance
-        .writeTxn(() async => await isarInstance.accounts.deleteAll([]));
+  Future deleteAccounts() async {
+    try {
+      await isarInstance.writeTxn(() async {
+        await isarInstance.accounts.deleteAll([]);
+      });
+    } catch (e) {
+      log('Error deleting accounts: $e');
+      throw Exception('Error deleting accounts');
+    }
   }
 
   Future<List<Account>> getFavourites() async {
-    final data = await isarInstance.accounts
-        .where()
-        .filter()
-        .isFavouriteEqualTo(true)
-        .findAll();
-    return data;
+    try {
+      final data = await isarInstance.accounts
+          .where()
+          .filter()
+          .isFavouriteEqualTo(true)
+          .findAll();
+      return data;
+    } catch (e) {
+      log('Error getting favourites: $e');
+      throw Exception('Error getting favourites');
+    }
   }
 
-  markAsFavourite(int accountId) async {
-    await isarInstance.writeTxn(() async {
-      final account = await isarInstance.accounts.get(accountId);
-      account!.isFavourite = true;
-      await isarInstance.accounts.put(account);
-    });
+  Future markAsFavourite(int accountId) async {
+    try {
+      await isarInstance.writeTxn(() async {
+        final account = await isarInstance.accounts.get(accountId);
+        account!.isFavourite = true;
+        await isarInstance.accounts.put(account);
+      });
+    } catch (e) {
+      log('Error marking as favourite: $e');
+      throw Exception('Error marking as favourite');
+    }
   }
 
-  removeAsFavourite(int accountId) async {
-    await isarInstance.writeTxn(() async {
-      final account = await isarInstance.accounts.get(accountId);
-      account!.isFavourite = false;
-      await isarInstance.accounts.put(account);
-    });
+  Future removeAsFavourite(int accountId) async {
+    try {
+      await isarInstance.writeTxn(() async {
+        final account = await isarInstance.accounts.get(accountId);
+        account!.isFavourite = false;
+        await isarInstance.accounts.put(account);
+      });
+    } catch (e) {
+      log('Error removing as favourite: $e');
+      throw Exception('Error removing as favourite');
+    }
   }
 
   Future<List<Account>> searchAccount(String query) async {
-    final data = await isarInstance.accounts
-        .where()
-        .filter()
-        .accountNameContains(query, caseSensitive: false)
-        .findAll();
-    return data;
+    try {
+      final data = await isarInstance.accounts
+          .where()
+          .filter()
+          .accountNameContains(query, caseSensitive: false)
+          .findAll();
+      return data;
+    } catch (e) {
+      log('Error searching account: $e');
+      throw Exception('Error searching for account');
+    }
   }
 
-  searchFavouriteAccounts(String query) async {
-    final data = await isarInstance.accounts
-        .where()
-        .filter()
-        .accountNameContains(query, caseSensitive: false)
-        .and()
-        .isFavouriteEqualTo(true)
-        .findAll();
-    return data;
+  Future searchFavouriteAccounts(String query) async {
+    try {
+      final data = await isarInstance.accounts
+          .where()
+          .filter()
+          .accountNameContains(query, caseSensitive: false)
+          .and()
+          .isFavouriteEqualTo(true)
+          .findAll();
+      return data;
+    } catch (e) {
+      log('Error searching favourite accounts: $e');
+      throw Exception('Error searching favourite accounts');
+    }
   }
 
   // Migrate data from SQLite to Isar
   Future migrateData() async {
-    final isarData = await isarInstance.accounts.where().findAll();
-    final sqliteData = await DbManager().getAccountList();
-    if (isarData.isEmpty && sqliteData.isNotEmpty) {
-      final db = DbManager();
-      final data = await db.getAccountList();
-      // account list from the accounts map list above
-      List<Account> accountList = [];
+    try {
+      final isarData = await isarInstance.accounts.where().findAll();
+      final sqliteData = await DbManager().getAccountList();
+      if (isarData.isEmpty && sqliteData.isNotEmpty) {
+        final db = DbManager();
+        final data = await db.getAccountList();
+        // account list from the accounts map list above
+        List<Account> accountList = [];
 
-      for (var account in data) {
-        accountList.add(Account.fromJson(account));
+        for (var account in data) {
+          accountList.add(Account.fromJson(account));
+        }
+
+        isarInstance.writeTxn(() => isarInstance.accounts.putAll(accountList));
+
+        await db.deleteAccounts();
       }
-
-      await isarInstance.writeTxn(() => isarInstance.accounts.putAll(accountList));
-
-      await db.deleteAccounts();
+    } catch (e) {
+      log('Error migrating data: $e');
     }
   }
 }
