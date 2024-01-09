@@ -10,7 +10,7 @@ class Favourite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    BlocProvider.of<AccountsCubit>(context).favouritedAccounts();
+    BlocProvider.of<AccountsCubit>(context).favouriteAccounts();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -41,7 +41,7 @@ class Favourite extends StatelessWidget {
                         .searchFavouriteAccounts(value.toString());
                   } else {
                     BlocProvider.of<AccountsCubit>(context)
-                        .favouritedAccounts();
+                        .favouriteAccounts();
                   }
                 },
               ),

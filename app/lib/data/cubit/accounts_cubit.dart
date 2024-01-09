@@ -1,20 +1,16 @@
 import 'package:bankimoon/data/isar_repo.dart';
-import 'package:bankimoon/data/repo.dart';
-// ignore: depend_on_referenced_packages
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
-import 'package:meta/meta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'accounts_state.dart';
 
 class AccountsCubit extends Cubit<AccountsState> {
-
   IsarRepo repository = IsarRepo.instance;
+
   AccountsCubit() : super(AccountsInitial());
 
   //fetch user accounts
-  void useraccounts() {
+  void getUserAccounts() {
     emit(FetchingAccounts());
     repository.getAccounts().then((value) {
       emit(
@@ -25,8 +21,8 @@ class AccountsCubit extends Cubit<AccountsState> {
     });
   }
 
-  // Fetch favourited accounts from the stoe
-  void favouritedAccounts() {
+  // Fetch favourite accounts from the store
+  void favouriteAccounts() {
     emit(FetchingAccounts());
     repository.getFavourites().then((value) {
       emit(
