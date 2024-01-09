@@ -1,3 +1,4 @@
+import 'package:bankimoon/data/cubit/accounts_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -18,6 +19,8 @@ class _SplashscreenState extends State<Splashscreen> {
   @override
   void initState() {
     // checkIfLoggedIn();
+    AccountsCubit().migrateData();
+
     delay();
 
     super.initState();

@@ -1,37 +1,35 @@
-import 'package:bankimoon/data/repo.dart';
-// ignore: depend_on_referenced_packages
-import 'package:bloc/bloc.dart';
+import 'package:bankimoon/data/isar_repo.dart';
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
-import 'package:meta/meta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'accounts_state.dart';
 
 class AccountsCubit extends Cubit<AccountsState> {
-  final Repository repository;
-  AccountsCubit({required this.repository}) : super(AccountsInitial());
+  IsarRepo repository = IsarRepo.instance;
 
-//fetch user accounts
-  void useraccounts() {
+  AccountsCubit() : super(AccountsInitial());
+
+  //fetch user accounts
+  void getUserAccounts() {
     emit(FetchingAccounts());
     repository.getAccounts().then((value) {
       emit(
         AccountsFetched(accounts: value),
       );
     }).catchError((err) {
-      emit(AccountFetchError(message: 'Got error $err'));
+      emit(ErrorState(message: err.toString()));
     });
   }
 
-  // Fetch favourited accounts from the stoe
-  void favouritedAccounts() {
+  // Fetch favourite accounts from the store
+  void favouriteAccounts() {
     emit(FetchingAccounts());
     repository.getFavourites().then((value) {
       emit(
         AccountsFetched(accounts: value),
       );
     }).catchError((err) {
-      emit(AccountFetchError(message: 'Got error $err'));
+      emit(ErrorState(message: err.toString()));
     });
   }
 
@@ -43,9 +41,11 @@ class AccountsCubit extends Cubit<AccountsState> {
         .then((value) {
       emit(
         AccountSubmitted(
-          msg: value['msg'],
+          msg: 'Account saved',
         ),
       );
+    }).catchError((error) {
+      emit(ErrorState(message: 'Got error $error'));
     });
   }
 
@@ -54,7 +54,7 @@ class AccountsCubit extends Cubit<AccountsState> {
     repository.searchAccount(query).then((value) {
       emit(AccountSearchResults(accounts: value));
     }).catchError((err) {
-      emit(AccountFetchError(message: 'Got error $err'));
+      emit(ErrorState(message: err.toString()));
     });
   }
 
@@ -62,24 +62,28 @@ class AccountsCubit extends Cubit<AccountsState> {
     repository.searchFavouriteAccounts(query).then((value) {
       emit(AccountSearchResults(accounts: value));
     }).catchError((err) {
-      emit(AccountFetchError(message: 'Got error $err'));
+      emit(ErrorState(message: err.toString()));
     });
   }
 
-  void markAsFavourite(int accountId) {
-    repository.markAsFavourite(accountId);
-    
+  Future<void> markAsFavourite(int accountId) async {
+    await repository.markAsFavourite(accountId);
+
     repository.getAccounts().then((value) {
       emit(AccountsFetched(accounts: value));
+    }).catchError((err) {
+      emit(ErrorState(message: err.toString()));
     });
   }
 
   // delete account
-  void deleteAccount(int id) {
-    repository.deleteAccount(id);
+  Future<void> deleteAccount(int id) async {
+    await repository.deleteAccount(id);
 
     repository.getAccounts().then((value) {
       emit(AccountsFetched(accounts: value));
+    }).catchError((err) {
+      emit(ErrorState(message: err.toString()));
     });
   }
 
@@ -89,9 +93,16 @@ class AccountsCubit extends Cubit<AccountsState> {
     repository.deleteAccounts().then((value) => {
           emit(
             AccountsDeleted(
-              msg: value['msg'],
+              msg: 'Accounts deleted',
             ),
           )
-        });
+        }).catchError((err) {
+      emit(ErrorState(message: err.toString()));
+    });
+  }
+
+  // Migrate data from the SQLite to Isar
+  Future migrateData() async {
+    await repository.migrateData();
   }
 }

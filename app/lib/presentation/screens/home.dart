@@ -12,7 +12,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    BlocProvider.of<AccountsCubit>(context).useraccounts();
+    BlocProvider.of<AccountsCubit>(context).getUserAccounts();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -38,7 +38,7 @@ class Home extends StatelessWidget {
                     BlocProvider.of<AccountsCubit>(context)
                         .searchAccount(value.toString());
                   } else {
-                    BlocProvider.of<AccountsCubit>(context).useraccounts();
+                    BlocProvider.of<AccountsCubit>(context).getUserAccounts();
                   }
                 },
               ),
@@ -224,7 +224,7 @@ class Home extends StatelessWidget {
                 ],
               );
             }
-          } else if (state is AccountFetchError) {
+          } else if (state is ErrorState) {
             return SizedBox(
               height: size.height,
               width: size.width,

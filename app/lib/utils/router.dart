@@ -10,13 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRouter {
-  late Repository repository;
 
-  AppRouter() {
-    repository = Repository(
-      connection: DbManager(),
-    );
-  }
+  AppRouter();
 
   // route generator
   Route? generateRoute(RouteSettings settings) {
@@ -28,21 +23,21 @@ class AppRouter {
       case home:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => AccountsCubit(repository: repository),
+            create: (context) => AccountsCubit(),
             child: const Home(),
           ),
         );
       case favouritePage:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => AccountsCubit(repository: repository),
+            create: (context) => AccountsCubit(),
             child: const Favourite(),
           ),
         );
       case addAccount:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => AccountsCubit(repository: repository),
+            create: (context) => AccountsCubit(),
             child: const AddAccount(),
           ),
         );
