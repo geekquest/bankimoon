@@ -36,13 +36,14 @@ class IsarRepo {
   Future<int> addAccount(
       String institutionName, String accountName, String accountNumber) async {
     try {
-      final data = await isarInstance.accounts.put(Account(
-        bankName: institutionName,
-        accountName: accountName,
-        accountNumber: accountNumber,
-        isFavourite: false,
-      ));
-      return data;
+      return await isarInstance.writeTxn(() async {
+        return await isarInstance.accounts.put(Account(
+          bankName: institutionName,
+          accountName: accountName,
+          accountNumber: accountNumber,
+          isFavourite: false,
+        ));
+      });
     } catch (e) {
       log('Error adding account: $e');
       throw Exception('Error adding account');
