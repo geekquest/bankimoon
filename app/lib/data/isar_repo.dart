@@ -39,7 +39,7 @@ class IsarRepo {
       final data = await isarInstance.accounts.put(Account(
         bankName: institutionName,
         accountName: accountName,
-        accountNumber: int.parse(accountNumber),
+        accountNumber: accountNumber,
         isFavourite: false,
       ));
       return data;
