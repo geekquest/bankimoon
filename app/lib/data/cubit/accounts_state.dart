@@ -16,7 +16,7 @@ class PasswordCreated extends AccountsState {
 class FetchingAccounts extends AccountsState {}
 
 class AccountsFetched extends AccountsState {
-  final List accounts;
+  final List<Account> accounts;
 
   AccountsFetched({required this.accounts});
 }
@@ -46,7 +46,7 @@ class AccountsDeleted extends AccountsState {
 }
 
 class AccountSearchResults extends AccountsState {
-  final List accounts;
+  final List<Account> accounts;
 
   AccountSearchResults({required this.accounts});
 }
