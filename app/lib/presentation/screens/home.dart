@@ -14,7 +14,6 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    BlocProvider.of<AccountsCubit>(context).getUserAccounts();
 
     // Handle errors
     BlocProvider.of<AccountsCubit>(context).stream.listen((state) {
@@ -27,6 +26,8 @@ class Home extends StatelessWidget {
         );
       }
     });
+
+    BlocProvider.of<AccountsCubit>(context).getUserAccounts();
 
     return Scaffold(
       appBar: AppBar(
