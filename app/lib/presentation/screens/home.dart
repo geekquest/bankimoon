@@ -2,6 +2,7 @@ import 'package:bankimoon/data/Models/accounts.dart';
 import 'package:bankimoon/data/cubit/accounts_cubit.dart';
 import 'package:bankimoon/presentation/widgets/account_list_widget.dart';
 import 'package:bankimoon/presentation/widgets/card.dart';
+import 'package:bankimoon/presentation/widgets/search_results_widget.dart';
 import 'package:bankimoon/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,116 +53,14 @@ class Home extends StatelessWidget {
       body: BlocBuilder<AccountsCubit, AccountsState>(
         builder: (context, state) {
           if (state is AccountsFetched) {
-            if (state.accounts.isEmpty) {
-              return SizedBox(
-                height: size.height,
-                width: size.width,
-                child: const Center(
-                  child: Text(
-                    'No accounts saved',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              );
-            } else {
-              return ListView(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      "Your Accounts",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  AccountListWidget(accounts: state.accounts, onDismissed: (index, direction){
-                    if (direction == DismissDirection.startToEnd) {
-                      BlocProvider.of<AccountsCubit>(context)
-                          .deleteAccount(state.accounts[index].id!);
-                    }
-                  }),
-                ],
-              );
-            }
+            return AccountListWidget(accounts: state.accounts, onDismissed: (index, direction){
+              if (direction == DismissDirection.startToEnd) {
+                BlocProvider.of<AccountsCubit>(context)
+                    .deleteAccount(state.accounts[index].id!);
+              }
+            });
           } else if (state is AccountSearchResults) {
-            if (state.accounts.isEmpty) {
-              return SizedBox(
-                height: size.height,
-                width: size.width,
-                child: const Center(
-                  child: Text(
-                    'Account not found',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              );
-            } else {
-              return ListView(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          "Account Search Results",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                        if (state.accounts.length == 1)
-                          Text(
-                            "${state.accounts.length} result",
-                            style: const TextStyle(
-                              fontSize: 12,
-                            ),
-                          )
-                        else
-                          Text(
-                            "${state.accounts.length} results",
-                            style: const TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-
-                        //placeholder for button
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const ScrollPhysics(),
-                    itemCount: state.accounts.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: AccountCard(
-                          accountId: state.accounts[index].id,
-                          accountName: state.accounts[index].accountName,
-                          accountNumber:
-                              state.accounts[index].accountNumber.toString(),
-                          bankName: state.accounts[index].bankName,
-                          isFavourite: state.accounts[index].isFavourite,
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              );
-            }
+            return SearchResultsWidget(accounts: state.accounts);
           } else if (state is ErrorState) {
             return SizedBox(
               height: size.height,
@@ -171,8 +70,7 @@ class Home extends StatelessWidget {
                     state.message,
                   )),
             );
-          }
-          else {
+          } else {
             return SizedBox(
               height: size.height,
               width: size.width,
