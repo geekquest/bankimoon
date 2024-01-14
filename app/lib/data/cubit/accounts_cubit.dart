@@ -1,3 +1,4 @@
+import 'package:bankimoon/data/Models/accounts.dart';
 import 'package:bankimoon/data/isar_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +7,7 @@ part 'accounts_state.dart';
 
 class AccountsCubit extends Cubit<AccountsState> {
   IsarRepo repository = IsarRepo.instance;
+  List<Account> accounts = [];
 
   AccountsCubit() : super(AccountsInitial());
 
@@ -13,6 +15,7 @@ class AccountsCubit extends Cubit<AccountsState> {
   void getUserAccounts() {
     emit(FetchingAccounts());
     repository.getAccounts().then((value) {
+      accounts = value;
       emit(
         AccountsFetched(accounts: value),
       );
@@ -25,6 +28,7 @@ class AccountsCubit extends Cubit<AccountsState> {
   void favouriteAccounts() {
     emit(FetchingAccounts());
     repository.getFavourites().then((value) {
+      accounts = value;
       emit(
         AccountsFetched(accounts: value),
       );
@@ -67,24 +71,16 @@ class AccountsCubit extends Cubit<AccountsState> {
   }
 
   Future<void> markAsFavourite(int accountId) async {
-    await repository.markAsFavourite(accountId);
-
-    repository.getAccounts().then((value) {
-      emit(AccountsFetched(accounts: value));
-    }).catchError((err) {
+    await repository.markAsFavourite(accountId).catchError((err) {
       emit(ErrorState(message: err.toString()));
-    });
+    }).whenComplete(() => getUserAccounts());
   }
 
   // delete account
   Future<void> deleteAccount(int id) async {
-    await repository.deleteAccount(id);
-
-    repository.getAccounts().then((value) {
-      emit(AccountsFetched(accounts: value));
-    }).catchError((err) {
+    await repository.deleteAccount(id).catchError((err) {
       emit(ErrorState(message: err.toString()));
-    });
+    }).whenComplete(() => getUserAccounts());
   }
 
   // nuke all accounts from db

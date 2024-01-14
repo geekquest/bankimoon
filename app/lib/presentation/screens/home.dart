@@ -1,7 +1,6 @@
 import 'package:bankimoon/data/Models/accounts.dart';
 import 'package:bankimoon/data/cubit/accounts_cubit.dart';
 import 'package:bankimoon/presentation/widgets/account_list_widget.dart';
-import 'package:bankimoon/presentation/widgets/card.dart';
 import 'package:bankimoon/presentation/widgets/search_results_widget.dart';
 import 'package:bankimoon/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +15,19 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     BlocProvider.of<AccountsCubit>(context).getUserAccounts();
+
+    // Handle errors
+    BlocProvider.of<AccountsCubit>(context).stream.listen((state) {
+      if (state is ErrorState) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.message),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -52,25 +64,13 @@ class Home extends StatelessWidget {
       ),
       body: BlocBuilder<AccountsCubit, AccountsState>(
         builder: (context, state) {
+          List<Account> accounts = [];
+
           if (state is AccountsFetched) {
-            return AccountListWidget(accounts: state.accounts, onDismissed: (index, direction){
-              if (direction == DismissDirection.startToEnd) {
-                BlocProvider.of<AccountsCubit>(context)
-                    .deleteAccount(state.accounts[index].id!);
-              }
-            });
+            accounts = state.accounts;
           } else if (state is AccountSearchResults) {
             return SearchResultsWidget(accounts: state.accounts);
-          } else if (state is ErrorState) {
-            return SizedBox(
-              height: size.height,
-              width: size.width,
-              child: Center(
-                  child: Text(
-                    state.message,
-                  )),
-            );
-          } else {
+          } else if (state is FetchingAccounts || state is DeletingAccount) {
             return SizedBox(
               height: size.height,
               width: size.width,
@@ -81,6 +81,11 @@ class Home extends StatelessWidget {
               ),
             );
           }
+
+          return AccountListWidget(accounts: BlocProvider.of<AccountsCubit>(context).accounts, onDismissed: (index){
+              BlocProvider.of<AccountsCubit>(context)
+                  .deleteAccount(accounts[index].id!);
+          });
         },
       ),
       bottomNavigationBar: const BottomNavBar(),

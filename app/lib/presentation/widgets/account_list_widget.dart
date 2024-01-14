@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class AccountListWidget extends StatelessWidget {
   final List accounts;
 
-  final Function(int, DismissDirection) onDismissed;
+  final Function(int) onDismissed;
 
   const AccountListWidget(
       {super.key, required this.accounts, required this.onDismissed});
@@ -46,9 +46,6 @@ class AccountListWidget extends StatelessWidget {
           itemCount: accounts.length,
           itemBuilder: (context, index) {
             return Dismissible(
-              onDismissed: (direction) {
-                onDismissed(index, direction);
-              },
               key: Key(accounts[index].id.toString()),
               direction: DismissDirection.startToEnd,
               confirmDismiss: (direction) async {
@@ -82,7 +79,10 @@ class AccountListWidget extends StatelessWidget {
                               child: const Text('Cancel'),
                             ),
                             TextButton(
-                              onPressed: () => Navigator.pop(context, true),
+                              onPressed: () {
+                                onDismissed(index);
+                                Navigator.pop(context, true);
+                              },
                               child: const Text('OK'),
                             ),
                           ],
