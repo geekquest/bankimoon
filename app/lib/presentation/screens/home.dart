@@ -1,4 +1,6 @@
+import 'package:bankimoon/data/Models/accounts.dart';
 import 'package:bankimoon/data/cubit/accounts_cubit.dart';
+import 'package:bankimoon/presentation/widgets/account_list_widget.dart';
 import 'package:bankimoon/presentation/widgets/card.dart';
 import 'package:bankimoon/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -77,76 +79,12 @@ class Home extends StatelessWidget {
                       ),
                     ),
                   ),
-                  ListView.builder(
-                    padding: const EdgeInsets.only(bottom: 100),
-                    shrinkWrap: true,
-                    physics: const ScrollPhysics(),
-                    itemCount: state.accounts.length,
-                    itemBuilder: (context, index) {
-                      return Dismissible(
-                        onDismissed: (direction) {
-                          if (direction == DismissDirection.startToEnd) {
-                            BlocProvider.of<AccountsCubit>(context)
-                                .deleteAccount(state.accounts[index].id);
-                          }
-                        },
-                        key: Key(state.accounts[index].id.toString()),
-                        direction: DismissDirection.startToEnd,
-                        confirmDismiss: (direction) async {
-                          if (direction == DismissDirection.startToEnd) {
-                            return showDialog<bool>(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                title: const Wrap(
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  spacing: 10,
-                                  children: [
-                                    Text(
-                                      'Delete account',
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                    Icon(
-                                      Icons.warning_amber_rounded,
-                                      color: Colors.red,
-                                    ),
-                                  ],
-                                ),
-                                content: Text(
-                                    'Are you sure you want to delete ${state.accounts[index].accountName} account?'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(context, false),
-                                    child: const Text('Cancel'),
-                                  ),
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(context, true),
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }
-
-                          return false;
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: AccountCard(
-                            accountId: state.accounts[index].id,
-                            accountName: state.accounts[index].accountName,
-                            accountNumber:
-                                state.accounts[index].accountNumber.toString(),
-                            bankName: state.accounts[index].bankName,
-                            isFavourite: state.accounts[index].isFavourite,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                  AccountListWidget(accounts: state.accounts, onDismissed: (index, direction){
+                    if (direction == DismissDirection.startToEnd) {
+                      BlocProvider.of<AccountsCubit>(context)
+                          .deleteAccount(state.accounts[index].id!);
+                    }
+                  }),
                 ],
               );
             }
@@ -230,10 +168,11 @@ class Home extends StatelessWidget {
               width: size.width,
               child: Center(
                   child: Text(
-                state.message,
-              )),
+                    state.message,
+                  )),
             );
-          } else {
+          }
+          else {
             return SizedBox(
               height: size.height,
               width: size.width,
