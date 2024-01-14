@@ -1,3 +1,4 @@
+import 'package:bankimoon/data/cubit/accounts_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -18,6 +19,8 @@ class _SplashscreenState extends State<Splashscreen> {
   @override
   void initState() {
     // checkIfLoggedIn();
+    AccountsCubit().migrateData();
+
     delay();
 
     super.initState();
@@ -38,11 +41,11 @@ class _SplashscreenState extends State<Splashscreen> {
             ),
             // ignore: prefer_const_constructors
             Center(
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     "Bankimoon",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -50,7 +53,7 @@ class _SplashscreenState extends State<Splashscreen> {
                       color: Colors.white,
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 10,
                   ),
                   SpinKitWave(

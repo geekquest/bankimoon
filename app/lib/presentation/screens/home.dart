@@ -1,8 +1,10 @@
 import 'package:bankimoon/data/cubit/accounts_cubit.dart';
-import 'package:bankimoon/presentation/widgets/account_card.dart';
+import 'package:bankimoon/presentation/widgets/card.dart';
 import 'package:bankimoon/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../widgets/nav_bar.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -10,7 +12,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    BlocProvider.of<AccountsCubit>(context).useraccounts();
+    BlocProvider.of<AccountsCubit>(context).getUserAccounts();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -18,9 +20,9 @@ class Home extends StatelessWidget {
           style: titleStyles,
         ),
         centerTitle: true,
-        leading: Icon(
+        leading: const Icon(
           Icons.ac_unit,
-          color: Colors.deepPurple[800],
+          color: Color.fromARGB(255, 15, 91, 254),
         ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50.0),
@@ -36,7 +38,7 @@ class Home extends StatelessWidget {
                     BlocProvider.of<AccountsCubit>(context)
                         .searchAccount(value.toString());
                   } else {
-                    BlocProvider.of<AccountsCubit>(context).useraccounts();
+                    BlocProvider.of<AccountsCubit>(context).getUserAccounts();
                   }
                 },
               ),
@@ -74,14 +76,6 @@ class Home extends StatelessWidget {
                         fontSize: 20,
                       ),
                     ),
-                  ),
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, favouritePage);
-                      },
-                      child: const Text("Favourites")),
-                  const SizedBox(
-                    height: 5,
                   ),
                   ListView.builder(
                     padding: const EdgeInsets.only(bottom: 100),
@@ -230,7 +224,7 @@ class Home extends StatelessWidget {
                 ],
               );
             }
-          } else if (state is AccountFetchError) {
+          } else if (state is ErrorState) {
             return SizedBox(
               height: size.height,
               width: size.width,
@@ -243,96 +237,16 @@ class Home extends StatelessWidget {
             return SizedBox(
               height: size.height,
               width: size.width,
-              child: Center(
+              child: const Center(
                 child: CircularProgressIndicator(
-                  color: Colors.deepPurple[800],
+                  color: Color.fromARGB(255, 15, 91, 254),
                 ),
               ),
             );
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, addAccount);
-        },
-        child: const Icon(Icons.add),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: Color.fromARGB(255, 15, 91, 254),
-        shape: const CircularNotchedRectangle(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    Icons.home,
-                    color: Colors.white, // Set the icon color to white
-                  ),
-                  onPressed: () {},
-                ),
-                Text(
-                  'Home',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    Icons.favorite,
-                    color: Colors.white, // Set the icon color to white
-                  ),
-                  onPressed: () {},
-                ),
-                Text(
-                  'Favorite',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    Icons.add,
-                    color: Colors.white, // Set the icon color to white
-                  ),
-                  onPressed: () {},
-                ),
-                Text(
-                  'Add account',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    Icons.account_circle,
-                    color: Colors.white, // Set the icon color to white
-                  ),
-                  onPressed: () {},
-                ),
-                Text(
-                  'My Account',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-          ],
-        ),
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-      ),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

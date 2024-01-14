@@ -51,8 +51,8 @@ class AccountSearchResults extends AccountsState {
   AccountSearchResults({required this.accounts});
 }
 
-class AccountFetchError extends AccountsState {
+class ErrorState extends AccountsState {
   final String message;
 
-  AccountFetchError({ required this.message });
+  ErrorState({ required this.message });
 }
