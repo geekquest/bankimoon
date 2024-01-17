@@ -7,7 +7,7 @@ class Account {
   Id? id = Isar.autoIncrement;
   String bankName;
   String accountName;
-  int accountNumber;
+  String accountNumber;
   bool isFavourite;
 
   Account({

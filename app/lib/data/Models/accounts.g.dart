@@ -25,7 +25,7 @@ const AccountSchema = CollectionSchema(
     r'accountNumber': PropertySchema(
       id: 1,
       name: r'accountNumber',
-      type: IsarType.long,
+      type: IsarType.string,
     ),
     r'bankName': PropertySchema(
       id: 2,
@@ -59,6 +59,7 @@ int _accountEstimateSize(
 ) {
   var bytesCount = offsets.last;
   bytesCount += 3 + object.accountName.length * 3;
+  bytesCount += 3 + object.accountNumber.length * 3;
   bytesCount += 3 + object.bankName.length * 3;
   return bytesCount;
 }
@@ -70,7 +71,7 @@ void _accountSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.accountName);
-  writer.writeLong(offsets[1], object.accountNumber);
+  writer.writeString(offsets[1], object.accountNumber);
   writer.writeString(offsets[2], object.bankName);
   writer.writeBool(offsets[3], object.isFavourite);
 }
@@ -83,7 +84,7 @@ Account _accountDeserialize(
 ) {
   final object = Account(
     accountName: reader.readString(offsets[0]),
-    accountNumber: reader.readLong(offsets[1]),
+    accountNumber: reader.readString(offsets[1]),
     bankName: reader.readString(offsets[2]),
     id: id,
     isFavourite: reader.readBool(offsets[3]),
@@ -101,7 +102,7 @@ P _accountDeserializeProp<P>(
     case 0:
       return (reader.readString(offset)) as P;
     case 1:
-      return (reader.readLong(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 2:
       return (reader.readString(offset)) as P;
     case 3:
@@ -332,47 +333,55 @@ extension AccountQueryFilter
   }
 
   QueryBuilder<Account, Account, QAfterFilterCondition> accountNumberEqualTo(
-      int value) {
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'accountNumber',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<Account, Account, QAfterFilterCondition>
       accountNumberGreaterThan(
-    int value, {
+    String value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'accountNumber',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<Account, Account, QAfterFilterCondition> accountNumberLessThan(
-    int value, {
+    String value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'accountNumber',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<Account, Account, QAfterFilterCondition> accountNumberBetween(
-    int lower,
-    int upper, {
+    String lower,
+    String upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -381,6 +390,76 @@ extension AccountQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> accountNumberStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'accountNumber',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> accountNumberEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'accountNumber',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> accountNumberContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'accountNumber',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> accountNumberMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'accountNumber',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> accountNumberIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'accountNumber',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition>
+      accountNumberIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'accountNumber',
+        value: '',
       ));
     });
   }
@@ -722,9 +801,11 @@ extension AccountQueryWhereDistinct
     });
   }
 
-  QueryBuilder<Account, Account, QDistinct> distinctByAccountNumber() {
+  QueryBuilder<Account, Account, QDistinct> distinctByAccountNumber(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'accountNumber');
+      return query.addDistinctBy(r'accountNumber',
+          caseSensitive: caseSensitive);
     });
   }
 
@@ -756,7 +837,7 @@ extension AccountQueryProperty
     });
   }
 
-  QueryBuilder<Account, int, QQueryOperations> accountNumberProperty() {
+  QueryBuilder<Account, String, QQueryOperations> accountNumberProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'accountNumber');
     });
