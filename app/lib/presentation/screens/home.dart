@@ -8,26 +8,39 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../widgets/nav_bar.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+
+  @override
+  void initState() {
+
+    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
+      BlocProvider.of<AccountsCubit>(context).stream.listen((state) {
+        if (state is ErrorState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.message),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      });
+
+      BlocProvider.of<AccountsCubit>(context).getUserAccounts();
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
-    // Handle errors
-    BlocProvider.of<AccountsCubit>(context).stream.listen((state) {
-      if (state is ErrorState) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(state.message),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
-    });
-
-    BlocProvider.of<AccountsCubit>(context).getUserAccounts();
 
     return Scaffold(
       appBar: AppBar(
