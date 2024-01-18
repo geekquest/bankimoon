@@ -1,8 +1,9 @@
+import 'package:bankimoon/data/Models/accounts.dart';
 import 'package:bankimoon/presentation/widgets/card.dart';
 import 'package:flutter/material.dart';
 
 class AccountListWidget extends StatelessWidget {
-  final List accounts;
+  final List<Account> accounts;
 
   final Function(int) onDismissed;
 
