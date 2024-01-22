@@ -93,7 +93,7 @@ class Favourite extends StatelessWidget {
                         onDismissed: (direction) {
                           if (direction == DismissDirection.startToEnd) {
                             BlocProvider.of<AccountsCubit>(context)
-                                .deleteAccount(state.accounts[index].id);
+                                .deleteAccount(state.accounts[index].id!);
                           }
                         },
                         key: Key(state.accounts[index].id.toString()),
@@ -142,7 +142,7 @@ class Favourite extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: AccountCard(
-                            accountId: state.accounts[index].id,
+                            accountId: state.accounts[index].id!,
                             accountName: state.accounts[index].accountName,
                             accountNumber:
                                 state.accounts[index].accountNumber.toString(),
@@ -217,7 +217,7 @@ class Favourite extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: AccountCard(
-                          accountId: state.accounts[index].id,
+                          accountId: state.accounts[index].id!,
                           accountName: state.accounts[index].accountName,
                           accountNumber:
                               state.accounts[index].accountNumber.toString(),

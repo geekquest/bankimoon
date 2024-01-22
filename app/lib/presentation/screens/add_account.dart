@@ -15,6 +15,7 @@ class _AddAccountState extends State<AddAccount> {
   String institutionName = 'National Bank of Malawi';
   final TextEditingController accountName = TextEditingController();
   final TextEditingController accountNumber = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -202,6 +203,14 @@ class _AddAccountState extends State<AddAccount> {
                               ),
                             );
                             Navigator.pushReplacementNamed(context, home);
+                          } else if (state is ErrorState) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  state.message,
+                                ),
+                              ),
+                            );
                           }
                         }, builder: (context, state) {
                           if (state is SubmittingAccount) {
