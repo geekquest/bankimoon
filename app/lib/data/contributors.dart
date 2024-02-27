@@ -22,6 +22,11 @@ List<Contributor> contributors = [
     url: "https://github.com/mijiga",
   ),
   Contributor(
+    name: "John Mwase",
+    ghUsername: "john@bluephix.com",
+    url: "https://bluephix.com",
+  ),
+  Contributor(
     name: "Rodger Kumwanje",
     ghUsername: "@RodgerCodes",
     url: "https://github.com/RodgerCodes",
