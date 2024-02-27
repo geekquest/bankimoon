@@ -93,6 +93,24 @@ class BottomNavBar extends StatelessWidget {
               ),
             ],
           ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              IconButton(
+                icon: const Icon(
+                  Icons.info,
+                  color: Colors.white, // Set the icon color to white
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, aboutPage);
+                },
+              ),
+              const Text(
+                'About',
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
         ],
       ),
     );
