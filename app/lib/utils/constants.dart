@@ -4,7 +4,16 @@ import 'package:flutter/material.dart';
 const splash = '/';
 const home = '/home';
 const addAccount = '/add-account';
+const aboutPage = '/about';
 const favouritePage = '/favs';
+
+const bankimoonDescription = """
+Bankimoon is an application to help people save account numbers in a convenient place. So that people can stop saving account numbers as phone numbers; hopefully this can reduce errors when sharing account information and when you need it. 
+
+Bankimoon supports different kinds of account numbers that Malawians interact with or use, though we are open to managing more and more.
+
+Bankimoon is a community project by members of GeekQuest.
+""";
 
 // colors
 const btnColor = Color.fromARGB(255, 69, 39, 160);
