@@ -1,4 +1,6 @@
+// once pr is approved: this file should be removed
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../utils/constants.dart';
 import '../screens/home.dart';
@@ -68,6 +70,7 @@ class BottomNavBar extends StatelessWidget {
                   color: Colors.white, // Set the icon color to white
                 ),
                 onPressed: () {
+                  context.push("/add-account");
                   Navigator.pushNamed(context, addAccount);
                 },
               ),

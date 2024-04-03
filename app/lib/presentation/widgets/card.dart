@@ -1,3 +1,4 @@
+import 'package:bankimoon/utils/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +24,7 @@ class AccountCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return SizedBox(
       child: Column(
         children: [
@@ -91,11 +93,7 @@ class AccountCard extends StatelessWidget {
                               BlocProvider.of<AccountsCubit>(context)
                                   .markAsFavourite(accountId);
 
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Added to favourites"),
-                                ),
-                              );
+                              toast(context, "Added to favourites");
                             },
                             child: Icon(Icons.favorite,
                                 color: isFavourite
@@ -133,43 +131,33 @@ class AccountCard extends StatelessWidget {
                         text: accountNumber,
                       ),
                     );
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Copied to clipboard"),
-                      ),
-                    );
+                    toast(context, "Copied to clipboard");
                   },
-                  child: const Card(
-                    shape: RoundedRectangleBorder(
+                  child: Card(
+                    shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15))),
-                    child: SizedBox(
-                      height: 35,
-                      width: 180,
-                      child: SizedBox(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.copy,
-                                    color: Colors.blueAccent,
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    "Copy",
-                                    style: TextStyle(
-                                        color: Colors.blueAccent,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: size.width / 2 * 0.2,
+                        vertical: 6,
+                      ),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.copy,
+                            color: Colors.blueAccent,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "Copy",
+                            style: TextStyle(
+                                color: Colors.blueAccent,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -180,34 +168,30 @@ class AccountCard extends StatelessWidget {
                       "$bankName \nName: $accountName \nAccount Number: $accountNumber \n \nShared from Bankimoon App",
                     );
                   },
-                  child: const Card(
+                  child: Card(
                     color: Colors.white,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15))),
-                    child: SizedBox(
-                      height: 35,
-                      width: 180,
-                      child: Row(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: size.width / 2 * 0.2,
+                        vertical: 6,
+                      ),
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          Icon(
+                            Icons.share,
+                            color: Colors.blueAccent,
+                          ),
                           SizedBox(
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.share,
-                                  color: Colors.blueAccent,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  "Share",
-                                  style: TextStyle(
-                                    color: Colors.blueAccent,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
+                            width: 5,
+                          ),
+                          Text(
+                            "Share",
+                            style: TextStyle(
+                              color: Colors.blueAccent,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],

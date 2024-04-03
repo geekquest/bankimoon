@@ -18,14 +18,7 @@ class Favourite extends StatelessWidget {
           style: titleStyles,
         ),
         centerTitle: true,
-        leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: const Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            )),
+        leading: const Text(""),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50.0),
           child: Padding(
@@ -40,8 +33,7 @@ class Favourite extends StatelessWidget {
                     BlocProvider.of<AccountsCubit>(context)
                         .searchFavouriteAccounts(value.toString());
                   } else {
-                    BlocProvider.of<AccountsCubit>(context)
-                        .favouriteAccounts();
+                    BlocProvider.of<AccountsCubit>(context).favouriteAccounts();
                   }
                 },
               ),
