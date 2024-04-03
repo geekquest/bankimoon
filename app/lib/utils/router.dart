@@ -4,7 +4,6 @@ import 'package:bankimoon/presentation/screens/splash_screen.dart';
 import 'package:bankimoon/presentation/screens/home.dart';
 import 'package:bankimoon/presentation/screens/about.dart';
 import 'package:bankimoon/utils/constants.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -23,14 +22,6 @@ final GoRouter router = GoRouter(
         child: const Home(),
       ),
     ),
-    // GoRoute(
-    //   name: "favourites",
-    //   path: favouritePage,
-    //   builder: (context, state) => BlocProvider(
-    //     create: (context) => AccountsCubit(),
-    //     child: const Favourite(),
-    //   ),
-    // ),
     GoRoute(
       name: "add-account",
       path: addAccount,

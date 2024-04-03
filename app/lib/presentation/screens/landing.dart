@@ -91,11 +91,12 @@ class _LandingPageState extends State<LandingPage> {
           }
 
           return AccountListWidget(
-              accounts: BlocProvider.of<AccountsCubit>(context).accounts,
-              onDismissed: (index) {
-                BlocProvider.of<AccountsCubit>(context)
-                    .deleteAccount(accounts[index].id!);
-              });
+            accounts: BlocProvider.of<AccountsCubit>(context).accounts,
+            onDismissed: (index) {
+              BlocProvider.of<AccountsCubit>(context)
+                  .deleteAccount(accounts[index].id!);
+            },
+          );
         },
       ),
     );

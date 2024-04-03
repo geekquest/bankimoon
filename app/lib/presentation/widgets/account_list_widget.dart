@@ -1,6 +1,7 @@
 import 'package:bankimoon/data/Models/accounts.dart';
 import 'package:bankimoon/presentation/widgets/card.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AccountListWidget extends StatelessWidget {
   final List<Account> accounts;
@@ -53,41 +54,39 @@ class AccountListWidget extends StatelessWidget {
                 if (direction == DismissDirection.startToEnd) {
                   return showDialog<bool>(
                     context: context,
-                    builder: (BuildContext context) =>
-                        AlertDialog(
-                          title: const Wrap(
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            spacing: 10,
-                            children: [
-                              Text(
-                                'Delete account',
-                                style: TextStyle(
-                                  color: Colors.red,
-                                ),
-                              ),
-                              Icon(
-                                Icons.warning_amber_rounded,
-                                color: Colors.red,
-                              ),
-                            ],
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        spacing: 10,
+                        children: [
+                          Text(
+                            'Delete account',
+                            style: TextStyle(
+                              color: Colors.red,
+                            ),
                           ),
-                          content: Text(
-                              'Are you sure you want to delete ${accounts[index]
-                                  .accountName} account?'),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () => Navigator.pop(context, false),
-                              child: const Text('Cancel'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                onDismissed(index);
-                                Navigator.pop(context, true);
-                              },
-                              child: const Text('OK'),
-                            ),
-                          ],
+                          Icon(
+                            Icons.warning_amber_rounded,
+                            color: Colors.red,
+                          ),
+                        ],
+                      ),
+                      content: Text(
+                          'Are you sure you want to delete ${accounts[index].accountName} account?'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, false),
+                          child: const Text('Cancel'),
                         ),
+                        TextButton(
+                          onPressed: () {
+                            onDismissed(index);
+                            context.pop();
+                          },
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    ),
                   );
                 }
 
