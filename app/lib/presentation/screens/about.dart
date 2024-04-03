@@ -16,23 +16,14 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text(
-            "About Bankimoon",
-            style: titleStyles,
-          ),
-          centerTitle: true,
-          leading: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: const Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              )),
-        ),
-        body: Container(
-            child: SingleChildScrollView(
-                child: Column(children: <Widget>[
+            title: const Text(
+              "About Bankimoon",
+              style: titleStyles,
+            ),
+            centerTitle: true,
+            leading: const Text("")),
+        body: SingleChildScrollView(
+            child: Column(children: <Widget>[
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Column(children: [
@@ -48,6 +39,6 @@ class AboutPage extends StatelessWidget {
             ]),
           ),
           _contributorList(),
-        ]))));
+        ])));
   }
 }
