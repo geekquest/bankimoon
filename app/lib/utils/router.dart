@@ -49,35 +49,3 @@ final GoRouter router = GoRouter(
     )
   ],
 );
-
-class AppRouter {
-  AppRouter();
-
-  // route generator
-  Route? generateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      case splash:
-        return MaterialPageRoute(
-          builder: (_) => const Splashscreen(),
-        );
-      // case home:
-      //   return MaterialPageRoute(
-      //     builder: (_) =>
-      //   );
-      // case favouritePage:
-      //   return MaterialPageRoute(
-      //     builder: (_) =>
-      //   );
-      // case addAccount:
-      //   return MaterialPageRoute(
-      //     builder: (_) =>
-      //   );
-      // case aboutPage:
-      //   return MaterialPageRoute(
-      //     builder: (_) =>
-      //   );
-      default:
-        return null;
-    }
-  }
-}

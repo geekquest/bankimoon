@@ -1,7 +1,9 @@
 import 'package:bankimoon/data/cubit/accounts_cubit.dart';
 import 'package:bankimoon/utils/constants.dart';
+import 'package:bankimoon/utils/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class AddAccount extends StatefulWidget {
   const AddAccount({super.key});
@@ -30,13 +32,14 @@ class _AddAccountState extends State<AddAccount> {
         ),
         centerTitle: true,
         leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: const Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            )),
+          onTap: () {
+            context.pop();
+          },
+          child: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -195,22 +198,10 @@ class _AddAccountState extends State<AddAccount> {
                         child: BlocConsumer<AccountsCubit, AccountsState>(
                             listener: (context, state) {
                           if (state is AccountSubmitted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  state.msg,
-                                ),
-                              ),
-                            );
-                            Navigator.pushReplacementNamed(context, home);
+                            toast(context, state.msg);
+                            context.pushReplacement(home);
                           } else if (state is ErrorState) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  state.message,
-                                ),
-                              ),
-                            );
+                            toast(context, state.message);
                           }
                         }, builder: (context, state) {
                           if (state is SubmittingAccount) {
