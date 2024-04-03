@@ -1,9 +1,10 @@
 import 'package:bankimoon/data/cubit/accounts_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:go_router/go_router.dart';
 
 class Splashscreen extends StatefulWidget {
-  const Splashscreen({Key? key}) : super(key: key);
+  const Splashscreen({super.key});
 
   @override
   State<Splashscreen> createState() => _SplashscreenState();
@@ -12,13 +13,12 @@ class Splashscreen extends StatefulWidget {
 class _SplashscreenState extends State<Splashscreen> {
   void delay() async {
     await Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, '/home');
+      context.push("/home");
     });
   }
 
   @override
   void initState() {
-    // checkIfLoggedIn();
     AccountsCubit().migrateData();
 
     delay();

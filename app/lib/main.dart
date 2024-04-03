@@ -10,9 +10,9 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) {
     runApp(
-      MaterialApp(
+      MaterialApp.router(
         debugShowCheckedModeBanner: false,
-        onGenerateRoute: AppRouter().generateRoute,
+        routerConfig: router,
         theme: ThemeData(
           useMaterial3: true,
           fontFamily: GoogleFonts.lato().fontFamily,
@@ -21,7 +21,6 @@ Future<void> main() async {
           ),
         ),
       ),
-
     );
   });
 }
