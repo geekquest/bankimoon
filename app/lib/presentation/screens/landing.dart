@@ -25,10 +25,8 @@ class _LandingPageState extends State<LandingPage> {
               backgroundColor: Colors.red,
             ),
           );
-        }
+        } 
       });
-
-      BlocProvider.of<AccountsCubit>(context).getUserAccounts();
     });
 
     super.initState();
@@ -36,6 +34,7 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<AccountsCubit>(context).getUserAccounts();
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -91,7 +90,7 @@ class _LandingPageState extends State<LandingPage> {
           }
 
           return AccountListWidget(
-            accounts: BlocProvider.of<AccountsCubit>(context).accounts,
+            accounts: accounts,
             onDismissed: (index) {
               BlocProvider.of<AccountsCubit>(context)
                   .deleteAccount(accounts[index].id!);

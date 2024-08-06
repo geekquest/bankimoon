@@ -53,10 +53,10 @@ class AccountsCubit extends Cubit<AccountsState> {
     });
   }
 
-  void updateAccount(Account account) async {
+  Future<void> updateAccount(Account account) async {
     await repository.updateAccount(account).catchError((error) {
       emit(ErrorState(message: 'Got error $error'));
-    }).whenComplete(() => getUserAccounts());
+    });
   }
 
   // Search account

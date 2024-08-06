@@ -214,8 +214,10 @@ class _EditAccountState extends State<EditAccountPage> {
                           account!.accountName = accountName.text.trim();
                           account!.accountNumber = accountNumber.text.trim();
                           account!.bankName = institutionName;
-                          BlocProvider.of<AccountsCubit>(context).updateAccount(account!);
-                          context.go('/home');
+                          BlocProvider.of<AccountsCubit>(context).updateAccount(account!).then((_) {
+                            BlocProvider.of<AccountsCubit>(context).getUserAccounts();
+                            context.go('/home');
+                        });
                         }
                       },
                       child: Container(
