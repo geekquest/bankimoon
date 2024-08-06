@@ -16,7 +16,7 @@ Bankimoon is a community project by members of GeekQuest.
 """;
 
 // colors
-const btnColor = Color.fromARGB(255, 69, 39, 160);
+const btnColor = Color.fromARGB(255, 15, 91, 254);
 
 // styles
 const btnStyle = BoxDecoration(
