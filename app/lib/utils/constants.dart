@@ -41,16 +41,20 @@ const titleStyles = TextStyle(
 );
 
 // banks array
-List<String> banks = [
+List<String> serviceProviders = [
   'National Bank of Malawi',
   'FDH Bank',
   'Standard Bank',
   'NBS Bank',
   'Eco Bank',
-  'My Bucks',
+  'Centenary Bank',
   'First Capital Bank',
   'ESCOM',
   'MASM',
   'DSTV',
   'GoTV',
+  'Blantyre Water Board',
+  'Lilongwe Water Board',
+  'Southern Region Water Board',
+  'Northern Region Water Board'
 ];

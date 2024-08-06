@@ -162,7 +162,7 @@ class _AddAccountState extends State<AddAccount> {
                         child: DropdownButton(
                             value: institutionName,
                             hint: const Text('Institution Name'),
-                            items: banks
+                            items: serviceProviders
                                 .map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem(
                                 value: value,
