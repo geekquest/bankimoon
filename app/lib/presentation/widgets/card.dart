@@ -51,7 +51,10 @@ class AccountCard extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
+                              overflow: TextOverflow.fade,
                             ),
+                            softWrap: false,
+                            textScaler: TextScaler.linear(0.8),
                           ),
                           const SizedBox(
                             height: 4,
@@ -78,7 +81,7 @@ class AccountCard extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    top: 0,
+                    bottom: 10,
                     right: 0,
                     child: Padding(
                       padding: const EdgeInsets.only(
