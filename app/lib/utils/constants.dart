@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 const splash = '/';
 const home = '/home';
 const addAccount = '/add-account';
+const editAccount = '/edit-account/:id';
 const aboutPage = '/about';
 const favouritePage = '/favs';
 

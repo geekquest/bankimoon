@@ -2,6 +2,7 @@ import 'package:bankimoon/utils/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../data/cubit/accounts_cubit.dart';
@@ -25,176 +26,180 @@ class AccountCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Wrap(children: [
-      SizedBox(
-        child: Column(
-          children: [
-            Card(
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15))),
-              color: Colors.white,
-              child: SizedBox(
-                height: 115,
-                width: MediaQuery.of(context).size.width,
-                child: Stack(children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                      top: 10,
-                    ),
-                    child: SizedBox(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            accountName,
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              overflow: TextOverflow.fade,
-                            ),
-                            softWrap: false,
-                            textScaler: TextScaler.linear(0.8),
-                          ),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                            accountNumber,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w300,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                            bankName,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w300,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    right: 0,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 20.0,
-                        right: 15.0,
-                      ),
-                      child: SizedBox(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                BlocProvider.of<AccountsCubit>(context)
-                                    .toggleFavourite(accountId);
-                              },
-                              child: Icon(Icons.favorite,
-                                  color: isFavourite
-                                      ? Colors.red[400]
-                                      : Colors.grey),
-                            ),
-                          ],
+    return GestureDetector(
+        onDoubleTap: () => {context.push("/edit-account/$accountId")},
+        child: Wrap(children: [
+          SizedBox(
+            child: Column(
+              children: [
+                Card(
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15))),
+                  color: Colors.white,
+                  child: SizedBox(
+                    height: 115,
+                    width: MediaQuery.of(context).size.width,
+                    child: Stack(children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 20,
+                          top: 10,
                         ),
-                      ),
-                    ),
-                  )
-                ]),
-              ),
-            ),
-            SizedBox(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Clipboard.setData(
-                        ClipboardData(
-                          text: accountNumber,
-                        ),
-                      );
-                      toast(context, "Copied to clipboard");
-                    },
-                    child: Card(
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: size.width / 2 * 0.2,
-                          vertical: 6,
-                        ),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.copy,
-                              color: Colors.blueAccent,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              "Copy",
-                              style: TextStyle(
-                                  color: Colors.blueAccent,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Share.share(
-                        "$bankName \nName: $accountName \nAccount Number: $accountNumber \n \nShared from Bankimoon App",
-                      );
-                    },
-                    child: Card(
-                      color: Colors.white,
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: size.width / 2 * 0.2,
-                          vertical: 6,
-                        ),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.share,
-                              color: Colors.blueAccent,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              "Share",
-                              style: TextStyle(
-                                color: Colors.blueAccent,
-                                fontWeight: FontWeight.bold,
+                        child: SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                accountName,
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  overflow: TextOverflow.fade,
+                                ),
+                                softWrap: false,
+                                textScaler: TextScaler.linear(0.8),
                               ),
-                            ),
-                          ],
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              Text(
+                                accountNumber,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              Text(
+                                bankName,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      )
-    ]);
+                      Positioned(
+                        bottom: 10,
+                        right: 0,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            top: 20.0,
+                            right: 15.0,
+                          ),
+                          child: SizedBox(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    BlocProvider.of<AccountsCubit>(context)
+                                        .toggleFavourite(accountId);
+                                  },
+                                  child: Icon(Icons.favorite,
+                                      color: isFavourite
+                                          ? Colors.red[400]
+                                          : Colors.grey),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    ]),
+                  ),
+                ),
+                SizedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Clipboard.setData(
+                            ClipboardData(
+                              text: accountNumber,
+                            ),
+                          );
+                          toast(context, "Copied to clipboard");
+                        },
+                        child: Card(
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: size.width / 2 * 0.2,
+                              vertical: 6,
+                            ),
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.copy,
+                                  color: Colors.blueAccent,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  "Copy",
+                                  style: TextStyle(
+                                      color: Colors.blueAccent,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Share.share(
+                            "$bankName \nName: $accountName \nAccount Number: $accountNumber \n \nShared from Bankimoon App",
+                          );
+                        },
+                        child: Card(
+                          color: Colors.white,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: size.width / 2 * 0.2,
+                              vertical: 6,
+                            ),
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.share,
+                                  color: Colors.blueAccent,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  "Share",
+                                  style: TextStyle(
+                                    color: Colors.blueAccent,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )
+        ]));
   }
 }

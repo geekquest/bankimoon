@@ -53,6 +53,12 @@ class AccountsCubit extends Cubit<AccountsState> {
     });
   }
 
+  void updateAccount(Account account) async {
+    await repository.updateAccount(account).catchError((error) {
+      emit(ErrorState(message: 'Got error $error'));
+    }).whenComplete(() => getUserAccounts());
+  }
+
   // Search account
   void searchAccount(String query) {
     repository.searchAccount(query).then((value) {
@@ -74,6 +80,16 @@ class AccountsCubit extends Cubit<AccountsState> {
     await repository.markAsFavourite(accountId).catchError((err) {
       emit(ErrorState(message: err.toString()));
     }).whenComplete(() => getUserAccounts());
+  }
+
+  Future<void> findById(int accountId) async {
+    await repository.findById(accountId)
+    .then((account) => {
+      emit(SingleAccountFetched(account: account!))
+    })
+    .catchError((err) => {
+      emit(ErrorState(message: err.toString()))
+    });
   }
 
   Future<void> toggleFavourite(int accountId) async {

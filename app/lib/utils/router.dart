@@ -1,11 +1,14 @@
 import 'package:bankimoon/data/cubit/accounts_cubit.dart';
 import 'package:bankimoon/presentation/screens/add_account.dart';
+import 'package:bankimoon/presentation/screens/edit_account.dart';
 import 'package:bankimoon/presentation/screens/splash_screen.dart';
 import 'package:bankimoon/presentation/screens/home.dart';
 import 'package:bankimoon/presentation/screens/about.dart';
 import 'package:bankimoon/utils/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
+
 
 final GoRouter router = GoRouter(
   routes: [
@@ -30,6 +33,15 @@ final GoRouter router = GoRouter(
         child: const AddAccount(),
       ),
     ),
+    GoRoute(
+        name: "edit-account",
+        path: editAccount,
+        builder: (context, state) {
+          var accountID = state.pathParameters["id"]!;
+          return BlocProvider(
+              create: (context) => AccountsCubit(),
+              child: EditAccountPage(accountId: int.parse(accountID)));
+        }),
     GoRoute(
       name: "about",
       path: aboutPage,
