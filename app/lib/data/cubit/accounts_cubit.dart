@@ -76,6 +76,12 @@ class AccountsCubit extends Cubit<AccountsState> {
     }).whenComplete(() => getUserAccounts());
   }
 
+  Future<void> toggleFavourite(int accountId) async {
+    await repository.toggleFavourite(accountId).catchError((err) {
+      emit(ErrorState(message: err.toString()));
+    }).whenComplete(() => getUserAccounts());
+  }
+
   // delete account
   Future<void> deleteAccount(int id) async {
     await repository.deleteAccount(id).catchError((err) {

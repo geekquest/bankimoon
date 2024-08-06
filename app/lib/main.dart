@@ -15,6 +15,7 @@ Future<void> main() async {
         routerConfig: router,
         theme: ThemeData(
           useMaterial3: true,
+          colorSchemeSeed: const Color.fromARGB(255, 15, 91, 254),
           fontFamily: GoogleFonts.lato().fontFamily,
           appBarTheme: const AppBarTheme(
             backgroundColor: Color.fromARGB(255, 15, 91, 254),

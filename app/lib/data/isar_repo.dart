@@ -98,6 +98,19 @@ class IsarRepo {
     }
   }
 
+  Future toggleFavourite(int accountId) async {
+    try {
+      await isarInstance.writeTxn(() async {
+        final account = await isarInstance.accounts.get(accountId);
+        account!.isFavourite = !account.isFavourite;
+        await isarInstance.accounts.put(account);
+      });
+    } catch (e) {
+      log('Error marking as favourite: $e');
+      throw Exception('Error marking as favourite');
+    }
+  }
+
   Future removeAsFavourite(int accountId) async {
     try {
       await isarInstance.writeTxn(() async {
