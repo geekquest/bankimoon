@@ -21,6 +21,12 @@ class AccountsFetched extends AccountsState {
   AccountsFetched({required this.accounts});
 }
 
+class SingleAccountFetched extends AccountsState {
+  final Account account;
+
+  SingleAccountFetched({required this.account});
+}
+
 class SubmittingAccount extends AccountsState {}
 
 class AccountSubmitted extends AccountsState {

@@ -50,6 +50,16 @@ class IsarRepo {
     }
   }
 
+  Future updateAccount(Account account) async {
+    try {
+      await isarInstance
+          .writeTxn(() async => await isarInstance.accounts.put(account));
+    } catch (e) {
+      log('Error updating account: $e');
+      throw Exception('Error updating account');
+    }
+  }
+
   Future deleteAccount(int id) async {
     try {
       await isarInstance
@@ -98,6 +108,16 @@ class IsarRepo {
     }
   }
 
+  Future<Account?> findById(int accountId) async {
+    try {
+      final account = await isarInstance.accounts.get(accountId);
+      return account;
+    } catch (e) {
+      log('Error fetching account: $e');
+      throw Exception('Error fetching account');
+    }
+  }
+
   Future toggleFavourite(int accountId) async {
     try {
       await isarInstance.writeTxn(() async {
@@ -106,8 +126,8 @@ class IsarRepo {
         await isarInstance.accounts.put(account);
       });
     } catch (e) {
-      log('Error marking as favourite: $e');
-      throw Exception('Error marking as favourite');
+      log('Error toggling favourite status: $e');
+      throw Exception('Error toggling as favourite');
     }
   }
 

@@ -12,17 +12,15 @@ class Splashscreen extends StatefulWidget {
 
 class _SplashscreenState extends State<Splashscreen> {
   void delay() async {
-    await Future.delayed(const Duration(seconds: 3), () {
+    await Future.delayed(const Duration(seconds: 2), () {
       context.push("/home");
     });
   }
 
   @override
   void initState() {
-    AccountsCubit().migrateData();
-
+    // AccountsCubit().migrateData();
     delay();
-
     super.initState();
   }
 
