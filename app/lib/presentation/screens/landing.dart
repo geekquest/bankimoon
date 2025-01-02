@@ -19,12 +19,14 @@ class _LandingPageState extends State<LandingPage> {
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
       BlocProvider.of<AccountsCubit>(context).stream.listen((state) {
         if (state is ErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.message),
               backgroundColor: Colors.red,
             ),
           );
+          }
         }
       });
 

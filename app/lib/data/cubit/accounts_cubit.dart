@@ -105,19 +105,21 @@ class AccountsCubit extends Cubit<AccountsState> {
     }).whenComplete(() => getUserAccounts());
   }
 
-  // nuke all accounts from db
-  void nukeAccounts() {
-    emit(DeletingAccounts());
-    repository.deleteAccounts().then((value) => {
-          emit(
-            AccountsDeleted(
-              msg: 'Accounts deleted',
-            ),
-          )
-        }).catchError((err) {
-      emit(ErrorState(message: err.toString()));
-    });
-  }
+void nukeAccounts() {
+  emit(DeletingAccounts());
+  repository.deleteAccounts().then((value) {
+    emit(
+      AccountsDeleted(
+        msg: 'Accounts deleted',
+      ),
+    );
+    return {}; // Explicitly return a Set<void>
+  }).catchError((err) {
+    emit(ErrorState(message: err.toString()));
+    return {}; // Ensure the handler returns a Set<void>
+  });
+}
+
 
   // Migrate data from the SQLite to Isar
   Future migrateData() async {

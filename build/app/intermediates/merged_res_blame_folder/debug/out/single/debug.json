@@ -1,0 +1,70 @@
+[
+    {
+        "merged": "com.example.bankimoon.app-merged_res-29:/drawable-xhdpi_ic_launcher_foreground.png.flat",
+        "source": "com.example.bankimoon.app-main-23:/drawable-xhdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "com.example.bankimoon.app-merged_res-29:/drawable-xxhdpi_ic_launcher_foreground.png.flat",
+        "source": "com.example.bankimoon.app-main-23:/drawable-xxhdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "com.example.bankimoon.app-merged_res-29:/drawable-v21_launch_background.xml.flat",
+        "source": "com.example.bankimoon.app-main-23:/drawable-v21/launch_background.xml"
+    },
+    {
+        "merged": "com.example.bankimoon.app-merged_res-29:/drawable-hdpi_ic_launcher_foreground.png.flat",
+        "source": "com.example.bankimoon.app-main-23:/drawable-hdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "com.example.bankimoon.app-merged_res-29:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.example.bankimoon.app-main-23:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.example.bankimoon.app-merged_res-29:/mipmap-hdpi_launcher_icon.png.flat",
+        "source": "com.example.bankimoon.app-main-23:/mipmap-hdpi/launcher_icon.png"
+    },
+    {
+        "merged": "com.example.bankimoon.app-merged_res-29:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.example.bankimoon.app-main-23:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.example.bankimoon.app-merged_res-29:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.example.bankimoon.app-main-23:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.example.bankimoon.app-merged_res-29:/mipmap-xhdpi_launcher_icon.png.flat",
+        "source": "com.example.bankimoon.app-main-23:/mipmap-xhdpi/launcher_icon.png"
+    },
+    {
+        "merged": "com.example.bankimoon.app-merged_res-29:/mipmap-mdpi_launcher_icon.png.flat",
+        "source": "com.example.bankimoon.app-main-23:/mipmap-mdpi/launcher_icon.png"
+    },
+    {
+        "merged": "com.example.bankimoon.app-merged_res-29:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.example.bankimoon.app-main-23:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.example.bankimoon.app-merged_res-29:/mipmap-xxhdpi_launcher_icon.png.flat",
+        "source": "com.example.bankimoon.app-main-23:/mipmap-xxhdpi/launcher_icon.png"
+    },
+    {
+        "merged": "com.example.bankimoon.app-merged_res-29:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.example.bankimoon.app-main-23:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.example.bankimoon.app-merged_res-29:/mipmap-xxxhdpi_launcher_icon.png.flat",
+        "source": "com.example.bankimoon.app-main-23:/mipmap-xxxhdpi/launcher_icon.png"
+    },
+    {
+        "merged": "com.example.bankimoon.app-merged_res-29:/mipmap-anydpi-v26_launcher_icon.xml.flat",
+        "source": "com.example.bankimoon.app-main-23:/mipmap-anydpi-v26/launcher_icon.xml"
+    },
+    {
+        "merged": "com.example.bankimoon.app-merged_res-29:/drawable-xxxhdpi_ic_launcher_foreground.png.flat",
+        "source": "com.example.bankimoon.app-main-23:/drawable-xxxhdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "com.example.bankimoon.app-merged_res-29:/drawable-mdpi_ic_launcher_foreground.png.flat",
+        "source": "com.example.bankimoon.app-main-23:/drawable-mdpi/ic_launcher_foreground.png"
+    }
+]
