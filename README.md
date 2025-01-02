@@ -1,14 +1,17 @@
 # bankimoon
 
-Bankimoon is an app for storing Account Numbers you use frequently locally on your phone.
-It uses your device's Local Storage for storing accounts, and (currently) does not push information to any online service.
+Bankimoon is a mobile application that helps people store Account Numbers, Utility accounts locally on their phone.
 
-It is tailored to Malawians who want to keep accounts so that they stop saving things like Bank Accounts as contacts and to make sharing of account numbers for online transactions easier. 
+It is tailored for Malawians and the goal is to make it convenient to store account numbers, utility accounts, and
+to put an end to the practice of storing such information as Contacts ;)
+
+It uses your device's Local Storage for storing accounts, and (currently) does not push information to any online service.
 
 Bankimoon is built with:
 
-- Flutter
-- SQLite
+- Flutter 3+
+- IsarDB
+- <3
 
 ## Design
 
@@ -20,7 +23,7 @@ Please refer to the diagram below for the initial use cases:
 
 ### UI / UX Design
 
-The UI/UX of the App is a work in progress - there is an initial for the app in the docs directory, [UI Design PDF](./docs/Bankimoon-UI-Design_v0.1.pdf)
+The UI/UX of the App is a work in progress - there is an initial design in the docs directory, [UI Design PDF](./docs/Bankimoon-UI-Design_v0.1.pdf)
 
 
 ## Getting the App
