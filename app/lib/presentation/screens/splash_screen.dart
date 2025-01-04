@@ -1,4 +1,3 @@
-import 'package:bankimoon/data/cubit/accounts_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
@@ -11,9 +10,13 @@ class Splashscreen extends StatefulWidget {
 }
 
 class _SplashscreenState extends State<Splashscreen> {
+  final GlobalKey<_SplashscreenState> widgetKey = GlobalKey();
   void delay() async {
     await Future.delayed(const Duration(seconds: 2), () {
-      context.push("/home");
+      var context = widgetKey.currentContext;
+      if (context != null && context.mounted) {
+        context.push("/home");
+      }
     });
   }
 

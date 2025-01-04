@@ -83,13 +83,10 @@ class AccountsCubit extends Cubit<AccountsState> {
   }
 
   Future<void> findById(int accountId) async {
-    await repository.findById(accountId)
-    .then((account) => {
-      emit(SingleAccountFetched(account: account!))
-    })
-    .catchError((err) => {
-      emit(ErrorState(message: err.toString()))
-    });
+    await repository
+        .findById(accountId)
+        .then((account) => {emit(SingleAccountFetched(account: account!))})
+        .catchError((err) => {emit(ErrorState(message: err.toString()))});
   }
 
   Future<void> toggleFavourite(int accountId) async {
@@ -108,15 +105,16 @@ class AccountsCubit extends Cubit<AccountsState> {
   // nuke all accounts from db
   void nukeAccounts() {
     emit(DeletingAccounts());
-    repository.deleteAccounts().then((value) => {
-          emit(
-            AccountsDeleted(
-              msg: 'Accounts deleted',
-            ),
-          )
-        }).catchError((err) {
-      emit(ErrorState(message: err.toString()));
-    });
+    repository
+        .deleteAccounts()
+        .then((value) => {
+              emit(
+                AccountsDeleted(
+                  msg: 'Accounts deleted',
+                ),
+              )
+            })
+        .catchError((err) => {emit(ErrorState(message: err.toString()))});
   }
 
   // Migrate data from the SQLite to Isar

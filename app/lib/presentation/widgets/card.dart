@@ -57,7 +57,7 @@ class AccountCard extends StatelessWidget {
                                   overflow: TextOverflow.fade,
                                 ),
                                 softWrap: false,
-                                textScaler: TextScaler.linear(0.8),
+                                textScaler: const TextScaler.linear(0.8),
                               ),
                               const SizedBox(
                                 height: 4,

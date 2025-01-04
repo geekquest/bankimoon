@@ -10,39 +10,36 @@ class EditAccountPage extends StatefulWidget {
   const EditAccountPage({super.key, required this.accountId});
 
   @override
-  State<EditAccountPage> createState() => _EditAccountState(accountId);
+  State<EditAccountPage> createState() => _EditAccountState();
 }
 
 class _EditAccountState extends State<EditAccountPage> {
-  final int accountId;
-  _EditAccountState(this.accountId);
+  _EditAccountState();
 
   Account? account;
-  
+
   final formkey = GlobalKey<FormState>();
   String institutionName = 'National Bank of Malawi';
   final TextEditingController accountName = TextEditingController();
   final TextEditingController accountNumber = TextEditingController();
 
-    @override
+  @override
   void initState() {
-      WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
+    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
       BlocProvider.of<AccountsCubit>(context).stream.listen((state) {
         if (state is SingleAccountFetched) {
           setState(() {
             account = state.account;
-            accountName.text = state.account.accountName!;
-            accountNumber.text = state.account.accountNumber!;
-            
+            accountName.text = state.account.accountName;
+            accountNumber.text = state.account.accountNumber;
           });
         }
       });
 
-      BlocProvider.of<AccountsCubit>(context).findById(accountId);
+      BlocProvider.of<AccountsCubit>(context).findById(widget.accountId);
     });
     super.initState();
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -214,7 +211,8 @@ class _EditAccountState extends State<EditAccountPage> {
                           account!.accountName = accountName.text.trim();
                           account!.accountNumber = accountNumber.text.trim();
                           account!.bankName = institutionName;
-                          BlocProvider.of<AccountsCubit>(context).updateAccount(account!);
+                          BlocProvider.of<AccountsCubit>(context)
+                              .updateAccount(account!);
                           context.go('/home');
                         }
                       },

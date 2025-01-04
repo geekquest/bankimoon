@@ -14,17 +14,21 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
+  final GlobalKey<_LandingPageState> widgetKey = GlobalKey();
   @override
   void initState() {
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
       BlocProvider.of<AccountsCubit>(context).stream.listen((state) {
         if (state is ErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-              backgroundColor: Colors.red,
-            ),
-          );
+          var keyContext = widgetKey.currentContext;
+          if (keyContext != null && keyContext.mounted) {
+            ScaffoldMessenger.of(keyContext).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
         }
       });
 
