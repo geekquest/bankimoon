@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:bankimoon/data/Models/accounts.dart';
 import 'package:bankimoon/data/database.dart';
 import 'package:isar/isar.dart';
@@ -197,4 +196,6 @@ class IsarRepo {
       log('Error migrating data: $e');
     }
   }
+
+
 }
