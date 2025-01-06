@@ -3,7 +3,6 @@ name: Flutter CI
 on:
   push:
     branches: [ "main" ]
-    tags: [ "v*" ]
 
 jobs:
   build:
@@ -12,6 +11,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
+          distribution: "zulu"
           java-version: '17'
           cache: 'gradle'
       - uses: subosito/flutter-action@v1
@@ -28,16 +28,3 @@ jobs:
       - name:  Build APK
         run: flutter build apk --split-per-abi
         working-directory: app
-      - uses: actions/upload-artifact@v3
-        with:
-          name: release-apk
-          path: ./app/build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
-      - name: Internal Release
-        uses: ncipollo/release-action@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          makeLatest: true
-          allowUpdates: true
-          removeArtifacts: true
-          generateReleaseNotes: false
-          artifacts: "./app/build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk"
