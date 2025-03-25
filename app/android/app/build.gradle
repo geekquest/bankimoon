@@ -23,6 +23,8 @@ if (flutterVersionName == null) {
 }
 
 android {
+    namespace "mw.geekquest.bankimoon"
+
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
