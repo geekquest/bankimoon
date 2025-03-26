@@ -1,4 +1,4 @@
-package com.example.bankimoon
+package mw.geekquest.bankimoon
 
 import io.flutter.embedding.android.FlutterActivity
 

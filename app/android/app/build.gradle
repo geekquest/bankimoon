@@ -23,6 +23,8 @@ if (flutterVersionName == null) {
 }
 
 android {
+    namespace "mw.geekquest.bankimoon"
+
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
@@ -40,7 +42,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.bankimoon"
+        applicationId "mw.geekquest.bankimoon"
         minSdkVersion flutter.minSdkVersion
 
         // You can update the following values to match your application needs.

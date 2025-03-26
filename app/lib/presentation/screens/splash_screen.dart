@@ -10,25 +10,22 @@ class Splashscreen extends StatefulWidget {
 }
 
 class _SplashscreenState extends State<Splashscreen> {
-  final GlobalKey<_SplashscreenState> widgetKey = GlobalKey();
-  void delay() async {
-    await Future.delayed(const Duration(seconds: 2), () {
-      var context = widgetKey.currentContext;
-      if (context != null && context.mounted) {
+  void delay(BuildContext context) async {
+    await Future.delayed(const Duration(milliseconds: 600), () {
         context.push("/home");
-      }
     });
   }
 
   @override
   void initState() {
     // AccountsCubit().migrateData();
-    delay();
     super.initState();
+    
   }
 
   @override
   Widget build(BuildContext context) {
+    delay(context);
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Center(
